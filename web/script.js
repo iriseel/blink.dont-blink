@@ -11,10 +11,23 @@ const left_textbox = document.querySelector(".textbox.left");
 const right_textbox = document.querySelector(".textbox.right");
 const left_text = document.querySelector(".text.left");
 const right_text = document.querySelector(".text.right");
-const bg_text = document.querySelector(".textbox_bg");
+//??Do I really need to define all this?
+const left_marquee = document
+    .querySelector(".left.eye_container")
+    .querySelector(".window")
+    .querySelector(".bottom_bar");
+
+const right_marquee = document
+    .querySelector(".right.eye_container")
+    .querySelector(".window")
+    .querySelector(".bottom_bar");
 
 let index = 0;
-let bg_index = 0;
+
+const full_textbox = document.querySelector(".full_textbox");
+
+let left_textcoords = [];
+let right_textcoords = [];
 
 const fonts = [
     "Bodoni, serif",
@@ -26,106 +39,108 @@ const fonts = [
     "myriad-pro, sans-serif",
 ];
 
-const texts_left = [
-    "DON’T BLINK",
-    "I AM NOTHING IF NOT AN IMAGE PROCESSOR",
-    "THE SECRET TO PHONE ADDICTION: INTERMITTENT VARIABLE-RATIO REINFORCEMENT SCHEDULE",
-    "THE MOTHER OF HABIT-FORMING TECHNOLOGY IS PROBABLY EMAIL.",
-    "ONE DAY WE WILL ALL BE ENGINEERED TO GROW COMPOUND EYES SO WE CAN PROCESS MORE IMAGES AT ONCE",
-    "I AM AN EXHIBITIONIST OF THE INTERNET. LOOK AT ME LOOKING",
-    "THIS STARING CONTEST WITH THE SCREEN WILL ONLY HAVE ONE VICTOR",
-    "I SPEND MORE TIME LOOKING INTO THE EYES OF MY WEBCAM THAN THOSE OF MY LOVER",
-    "HOW TO GAZE MORE AMOROUSLY AT YOUR SCREEN",
-    "THE WILL TO LIGHT THE NIGHT IS IN ESSENCE A WILL TO POWER.",
-    "DON’T SLEEP, WATCH!",
-    "WHO WILL WIN THE COMPETITION AGAINST SLEEP?",
-    "YOU NOW HAVE A SHORTER ATTENTION SPAN THAN A GOLDFISH",
-    "OUR EYES REACH FOR OUR SCREENS",
-    "BOTHERED BY THE BRIGHT LIGHTS WE MAKE SIGNS",
-    // "",
-    // "",
-    // "",
-    // "",
-    // "",
-    // "",
-    // "",
+const texts = [
+    "DON'T BLINK! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(3),
+    "Shocking Truth Revealed: Why We're Addicted to our Phones and Can't Look Away! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Animal Vision: What You Didn't Know About Ocelli, Compound Eyes, and Camera Eyes - Mind Blowing! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Are Your Devices Killing Your Love Life? The Surprising Science Behind Intimate Machines and Arousal. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "The Annual Staring Contest in Portland: Can You Handle the Eye-Straining Tension? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Big Train Staring Final: Who Will Emerge Victorious in this Epic Battle of Wills? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Eyesore Wins 40-Minute Staring Competition - The Shocking Upset You Didn't See Coming! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Macs and Fetishes: The Surprising Link You Need to Know About! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Is Our Planet Doomed? The Shocking Truth About How Artificial Light is Poisoning Our Environment. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Parents Punish Son with All-Night TV Binge - Is This the Craziest Punishment Ever? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "The Clockwork Orange Ludovico Technique: What You Need to Know About This Infamous Mind Control Method. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Political Prisoners Forced to Watch State TV in Russia - The Shocking Reality You Didn't Know About! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Move Over Netflix, Sleep is Your Biggest Streaming Competitor! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Are You Smarter Than a Goldfish? Shocking New Study Reveals the Truth About Your Attention Span. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "The Attention Span Myth Debunked - What You Really Need to Know! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Blue Light: The Silent Killer of Your Vision? Find Out Now! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "Actor Sets Unbelievable Blinking Record - How Did He Do It? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "The Surprising Reason Why So Many People Need Glasses Now - You Won't Believe It! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
+    "The Unbelievable Morse Code Message Admiral Jeremiah Denton Sent Using Just His Blinks - Mind Blowing! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
+        3
+    ),
 ];
 
-marquees_left = [
-    "",
-    "",
-    "CHECK CHECK CHECK",
-    "Is there really a drastic difference in what works on getting me to click versus what i really want?",
-    "PLEASE SHARE, SHARE TO PLEASE",
-    "SCREEN-GAZING = LESS BLINKING = EFFICIENCY = $$$",
-    "",
-    "",
-    "",
-    "The average human adult blinks 12 times per minute, with one blink lasting about ⅓ second. With the average adult awake for 17 hours in a day, that is 1 hour and 8 minutes of blinking that could have been spent on looking.",
-    "THE MORE WE LOOK THE LESS WE SEE",
-];
-
-const texts_right = [
-    "DON’T BLINK",
-    "I AM NOTHING IF NOT AN IMAGE PROCESSOR",
-    "PIGEON = GAMBLING ADDICT = SMARTPHONE USER?",
-    "EMAIL IS A FANTASTIC VARIABLE REWARD MECHANISM.",
-    "ONE DAY WE WILL ALL BE ENGINEERED TO GROW COMPOUND EYES SO WE CAN PROCESS MORE IMAGES AT ONCE",
-    "COMPUTER DOMINATION TURNS ME ON",
-    "THIS STARING CONTEST WITH THE SCREEN WILL ONLY HAVE ONE VICTOR",
-    "I SPEND MORE TIME LOOKING INTO THE EYES OF MY WEBCAM THAN THOSE OF MY LOVER",
-    "HOW TO GAZE MORE AMOROUSLY AT YOUR SCREEN",
-    "INDOOR LIGHT CAUSES DEATH SPIRALS",
-    "TV DISCIPLINE",
-    "THE MARGINS OF SLEEP ARE PROFIT MARGINS",
-    "FAKE NEWS: NO EVIDENCE THAT HUMAN ATTENTION SPANS ARE SHRINKING",
-    "SCREEN-GAZING = LESS BLINKING = EFFICIENCY = $$$",
-    "MODERN ROMANCE: LONG-DISTANCE RELATIONSHIP BETWEEN EYE AND SCREEN",
-    "BOTHERED BY THE BRIGHT LIGHTS WE MAKE SIGNS",
-    "",
-];
+marquees_left = [];
 
 marquees_right = [];
 
 const links = [
-    "https://en.wikipedia.org/wiki/Don%27t_Blink_(film)",
+    // "https://en.wikipedia.org/wiki/Don%27t_Blink_(film)",
     "https://youtu.be/jk6sz25OZgw",
-    "",
     "https://www.bbc.co.uk/sounds/play/p04svtlv",
     "https://www.education.com/science-fair/article/bug-eyed/ ",
     "https://mayacfriedman.github.io/seduction-of-machines/",
     "https://www.oregonlive.com/entertainment/2015/05/109th_annual_staring_contest.html",
     "https://youtu.be/SWgg20IqibM ",
     "https://www.abc.net.au/local/photos/2011/09/24/3325159.htm",
-    "https://www.bbc.co.uk/sounds/play/p04svtlv",
     "https://www.wired.com/2002/11/fetishists-really-love-their-macs/",
-    "https://www.deviantart.com/shadowedhand/art/Miss-Bunny-gif-784412791",
+    // "https://www.deviantart.com/shadowedhand/art/Miss-Bunny-gif-784412791",
     "https://www.newyorker.com/magazine/2023/02/27/darkness-manifesto-book-johan-eklof ",
     "https://www.scmp.com/news/people-culture/trending-china/article/3200731/too-harsh-parents-china-punish-son-watching-too-much-television-all-night-tv-binge-take-turns-keep",
     "https://youtu.be/4woPg0-xyAA",
     "https://slate.com/news-and-politics/2021/08/russia-prison-tv-navalny.html",
     "https://www.theguardian.com/technology/2017/apr/18/netflix-competitor-sleep-uber-facebook",
     "https://time.com/3858309/attention-spans-goldfish/",
+    "https://www.bbc.com/news/health-38896790",
     "https://www.aao.org/eye-health/tips-prevention/should-you-be-worried-about-blue-light ",
     "https://www.upi.com/Odd_News/2019/10/08/Actor-goes-1-hour-17-minutes-3-seconds-without-blinking/5801570550478/",
     "https://youtu.be/LAkFtka3UFw",
     "https://youtu.be/rufnWLVQcKg",
-    "",
-    "",
 ];
 
-const texts_bg = [
-    "Jonathan Beller, <i>The Political Economy of the Postmodern</i>",
-    "Tracing the increasing marginalization of language by images in his “Language, Images and the Postmodern Predicament,” Wlad Godzich, probably borrowing from Roger Munier's pamphlet Against Images, puts it thus:",
-    "“Where with language we have a discourse on the world, with human beings facing the world in order to name it, photography substitutes the simple appearance of things; it is a discourse of the world. . . . Images now allow for the paradox that the world states itself before human language.”",
-    "To register the crisis that the proliferation of images poses for language and thus for the conscious mind would be to agree with Godzich that today language is outpaced by images.",
-    "“Images are scrambling the function of language which must operate out of the imaginary to function optimally.”",
-    "The overall effect of an everincreasing quantity of images is the radical alienation of consciousness, its isolation and separation, its inability to convincingly “language” reality and thus its reduction to something on the order of a free-floating hallucination, cut away as it is from all ground.",
-    "When linked to the rise of image technologies, this demotion of language and of its capacity to slow down the movement of reality suggests, that the radical alienation of language, that is, the alienation of the subject and its principle means of self-expression and self-understanding, is a structural e¤ect of the intensification of capitalism and therefore, an instrumental strategy of domination.",
-    "In addition to Marx's description of the four-fold alienation produced by wage-labor (from the object, the self, other people, and the species), bodies become deprived of the power of speech. This image-consciousness, or better, image/consciousness in which consciousness is an afterthought of the spectacle, participates in the rendering of an intensified auratic component, theorized as “simulation” or “the simulacrum,” to nearly every aspect of social existence in the technologically permeated world.",
-    "Beyond all reckoning, the objective world is newly regnant with an excess of sign value, or rather, with values exceeding the capacities of the sign.",
-    "Frenzied attempts to language “reality” (what appears) become hysterical because everything is a symptom of something else. Such a promiscuity of signification, what Baudrillard called “the ecstasy of communication,” implies, in short, a devaluation of signification— a radical instability, unanchoredness, and inconsistency of consciousness to such an extent that consciousness becomes unconsciousness by other means.",
-    "In the onslaught of the spectacle, consciousness cannot take hold, it does not “take,” but rather roams and sputters in fits and starts.",
+//??How to get these text animations right??
+const text_anims = [
+    "marquee 8s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 50s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
+    "marquee 30s linear infinite",
 ];
 
 const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
@@ -133,29 +148,27 @@ const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
 let text_content = "";
 
 let textHeight;
-let textHeight_max = 70;
+let textHeight_max = 60;
 let textWidth;
 let textWidth_max = 40;
-let filter = 8;
-let filter_max = 8;
 
 // function calcDistances(x1, y1, x2, y2) {
 //     return Math.hypot(x1 - x2, y1 - y2);
 // }
 
 let set_text = true;
-let set_bgtext = true;
+let set_popup = true;
 let set_color = true;
 let left_closed = false;
 let right_closed = false;
 let been_open = true;
 
 //using this set_text boolean so that index doesn't change like 10 times per blink, since onResults() is being called super quickly. Instead it only changes max once per 150ms
-function change_text(text, texts) {
+function change_text() {
     if (set_text) {
-        const text_p = text.querySelector("p");
+        const text_p = full_textbox.querySelector("p");
+        console.log(text_p);
         set_text = false;
-        index++;
         if (index > texts.length - 1) index = 0;
         text_content = texts[index];
 
@@ -168,42 +181,70 @@ function change_text(text, texts) {
         // console.log(character_count);
         // console.log(index, text);
 
-        text.querySelector("p").innerHTML = text.textContent.replace(
+        text_p.innerHTML = text_p.textContent.replace(
             /\b\w+\b/g,
             "<span class='word' >$&</span>"
         );
 
         // text_p.classList.remove("scroll_up");
-        text_p.className = "";
-        void text_p.offsetHeight;
-        text_p.classList.add("scroll_up");
+        // text_p.className = "";
+        // void text_p.offsetHeight;
+        // text_p.classList.add("scroll_up");
+
+        text_p.style.animation = text_anims[index];
+        console.log("animation", text_p.style.animation);
 
         randomize_color();
         randomize_font(left_text);
         randomize_font(right_text);
 
+        change_marquee();
+
+        index++;
         setTimeout(() => (set_text = true), 150);
     }
 }
 
-let counter = 0;
+change_text();
+
+//??Something is not right with these marquee animations, frequent overlaps
+function change_marquee() {
+    const marquees = document.querySelectorAll(".bottom_bar");
+    marquees.forEach(function (marquee) {
+        const marquee_p = marquee.querySelector("p");
+        marquee_p.innerHTML = `${links[index]}`;
+
+        const marquee_p_width = marquee_p.offsetWidth;
+        const marquee_p_clone = marquee_p.cloneNode(true);
+        const marquee_p_clone2 = marquee_p.cloneNode(true);
+
+        marquee_p.insertAdjacentElement("afterend", marquee_p_clone);
+        marquee_p_clone.style.left = `calc(${marquee_p_width}px + 15em)`;
+
+        marquee_p_clone.insertAdjacentElement("afterend", marquee_p_clone2);
+        marquee_p_clone2.style.left = `calc((${marquee_p_width}px + 15em)*2)`;
+    });
+}
+
+let counter = -1;
+let popup_w;
 let popupWidth_Min = 100;
 let popupWidth_Max = 1300;
 let popupHeight_Min = 200;
 let popupHeight_Max = 900;
 
-function change_bgtext(text, texts) {
-    if (set_bgtext) {
-        const text_p = text.querySelector("p");
-        set_text = false;
-        if (bg_index > texts.length - 1) bg_index = 0;
-
-        text_p.innerHTML = texts_bg[bg_index];
-        bg_text.style.opacity = 1;
-        bg_index++;
-
+//??Is it possible to customize the popup? I tried
+// .enhanceWithin()
+// .addClass("popup")
+//but they don't work :(
+function popup() {
+    if (set_popup) {
+        if (counter > 0) {
+            //??This doesn't work on the first popup? And also doesn't work once you move or interact with a popup? Will also randomly no work like on the 8th popup?
+            popup_w.close();
+        }
         counter++;
-        let popupName = "Popup" + counter;
+        // console.log(counter);
         let popupWidth =
             Math.floor(Math.random() * (popupWidth_Max - popupWidth_Min + 1)) +
             popupWidth_Min;
@@ -217,11 +258,13 @@ function change_bgtext(text, texts) {
         var topPos = Math.floor(Math.random() * (screenHeight - popupHeight));
 
         // Open the link at the random index in a new tab
-        let popup = window.open(
-            links[bg_index],
-            popupName,
+        popup_w = window.open(
+            links[counter],
+            "popup",
             `width=${popupWidth},height=${popupHeight}, left=${leftPos}, top=${topPos}`
         );
+
+        console.log("index", index);
     }
 }
 
@@ -256,8 +299,7 @@ function onResults(results) {
                 right_eye_bottom_y,
                 right_eye_top_y,
                 right_textbox,
-                right_text,
-                texts_right
+                right_marquee
             );
 
             // LEFT EYE ////////////////////////////////
@@ -270,8 +312,7 @@ function onResults(results) {
                 left_eye_bottom_y,
                 left_eye_top_y,
                 left_textbox,
-                left_text,
-                texts_left
+                left_marquee
             );
 
             mouthCanvasCtx.restore();
@@ -285,57 +326,48 @@ function set_eye_height(
     eye_bottom_y,
     eye_top_y,
     textbox,
-    text,
-    texts
+    marquee
 ) {
     let eye_face_ratio =
         ((eye_bottom_y - eye_top_y) / (face_bottom_y - face_top_y)) * 10000;
 
     if (eye_face_ratio <= 200) {
-        change_text(text, texts);
         textHeight = 0;
-        filter = 0;
 
         //checking if eyes are closed
-        if (text == left_text) {
+        if (textbox == left_textbox) {
             left_closed = true;
         }
-        if (text == right_text) {
+        if (textbox == right_textbox) {
             right_closed = true;
         }
         if (left_closed && right_closed && been_open) {
-            change_bgtext(bg_text, texts_bg);
+            change_text();
+            popup();
             been_open = false;
         }
     } else {
         //eyes are open
-        if (text == left_text) {
+        if (textbox == left_textbox) {
             left_closed = false;
         }
-        if (text == right_text) {
+        if (textbox == right_textbox) {
             right_closed = false;
         }
         if (!left_closed && !right_closed) {
             been_open = true;
-            bg_text.style.opacity = 0;
         }
 
         if (eye_face_ratio >= 450) {
             textHeight = textHeight_max;
-            filter = filter_max;
         } else if (eye_face_ratio > 200 && eye_face_ratio < 450) {
             textHeight = Math.abs(
                 map(eye_face_ratio, 200, 450, 0, textHeight_max)
             );
-            filter = map(eye_face_ratio, 200, 450, 0, filter_max);
-            // textWidth = Math.abs(map(eye_face_ratio, 200, 450, 0, textWidth_max));
         }
     }
 
-    // text.style.filter = `blur(${filter}px)`;
-
     textbox.style.height = `${Math.floor(textHeight)}vh`;
-    // textbox.style.width = `${Math.floor(textWidth)}vw`;
 
     let text_coords = textbox.getBoundingClientRect();
 
@@ -349,6 +381,61 @@ function set_eye_height(
     textbox.style[
         "-webkit-mask"
     ] = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="${svg_path}" fill="black"/></svg>') 0/100% 100%, linear-gradient(#fff, #fff)`;
+
+    marquee.style[
+        "-webkit-mask"
+    ] = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="${svg_path}" fill="black"/></svg>') 0/100% 100%, linear-gradient(#fff, #fff)`;
+
+    //??Why doesn't this work on full_Textbox??
+    full_textbox.style[
+        "-webkit-mask"
+    ] = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="${svg_path}" fill="black"/></svg>') 0/100% 100%, linear-gradient(#fff, #fff)`;
+
+    if (textbox == left_textbox) {
+        left_textcoords.push(
+            `${text_coords.left},${text_coords.top} `,
+            `${text_coords.right},${text_coords.top} `,
+            `${text_coords.right},${text_coords.bottom} `,
+            `${text_coords.left},${text_coords.bottom} `
+        );
+    } else if (textbox == right_textbox) {
+        right_textcoords.push(
+            `${text_coords.left},${text_coords.top} `,
+            `${text_coords.right},${text_coords.top} `,
+            `${text_coords.right},${text_coords.bottom} `,
+            `${text_coords.left},${text_coords.bottom} `
+        );
+
+        full_textbox_mask();
+    }
+}
+// 665,233.25 1330,233.25 1330,793.046875 665,793.046875
+// 0,233.25 665,233.25 665,233.25 1330,233.25 1330,793.046875 665,793.046875 665,793.046875 0,793.046875
+function full_textbox_mask() {
+    let full_svg_path = "";
+    full_svg_path += left_textcoords[0];
+
+    full_svg_path += left_textcoords[1];
+
+    full_svg_path += right_textcoords[0];
+
+    full_svg_path += right_textcoords[1];
+
+    full_svg_path += right_textcoords[2];
+
+    full_svg_path += right_textcoords[3];
+
+    full_svg_path += left_textcoords[2];
+
+    full_svg_path += left_textcoords[3];
+
+    // console.log(full_svg_path);
+    //??the full_svg_path seems fine, but it's not applying??
+    full_textbox.style[
+        "-webkit-mask"
+    ] = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="${full_svg_path}" fill="black"/></svg>') 0/100% 100%, linear-gradient(#fff, #fff)`;
+    left_textcoords = [];
+    right_textcoords = [];
 }
 
 // Create Facemesh

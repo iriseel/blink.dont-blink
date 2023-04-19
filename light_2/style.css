@@ -75,10 +75,8 @@ canvas {
     color:white;
     opacity:0;
     transition: opacity .2s;
-    font-size:.4em;
+    font-size:.7em;
     line-height:1.2em;
-
-    display:none;
 }
 
 .container {
@@ -168,7 +166,6 @@ canvas {
 }
 
 .marquee_9s {
-    transform: translateX(200%);
     animation: marquee 26s linear 3s infinite;
 }
 
@@ -220,19 +217,14 @@ canvas {
 
 @keyframes marquee {
     0% {
-        transform: translateX(200%);
+        transform: translateX(100%);
     }
 
-    50% {
+    100% {
         /* left: var(--marquee_end); */
         transform: translateX(-70%);
     }
 
-
-        100% {
-            /* left: var(--marquee_end); */
-            transform: translateX(-70%);
-        }
 }
 
 @keyframes glow {

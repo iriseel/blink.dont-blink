@@ -129,8 +129,7 @@ function generate_eye_div(id) {
     const texts = id === "left" ? texts_left : texts_right;
     const animation_durations =
         id === "left" ? animation_durations_left : animation_durations_right;
-    // const index = id === "left" ? index_left : index_right;
-    const index = 8;
+    const index = id === "left" ? index_left : index_right;
 
     if (index_left > texts_left.length - 1) index_left = 0;
     if (index_right > texts_right.length - 1) index_right = 0;

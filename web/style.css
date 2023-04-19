@@ -4,6 +4,11 @@
     inherits: false;
 }
 
+@font-face {
+    font-family: impactN;
+    src: url(fonts/JLImpactNieuw-2019Trial.otf)
+}
+
 html, * {
     box-sizing: border-box;
     
@@ -27,7 +32,7 @@ body {
     overflow: hidden;
     position: relative;
 
-    font-family:'Helvetica', 'arial', sans-serif;
+    font-family: impactN, 'Helvetica', 'arial', sans-serif;
     font-size: 10vh;
     line-height: 12vh;
     color: white;
@@ -35,6 +40,10 @@ body {
 
     background:black;
 
+}
+
+.popup {
+    font-family: impactN, 'Helvetica', 'arial', sans-serif;
 }
 
 .black_screen {
@@ -51,6 +60,9 @@ body {
     width:inherit;
     height:inherit;
     position:relative;
+
+    display: flex;
+        flex-flow: column wrap;
 }
 
 /*width and height stretch the 1280px x 720px canvas to fill the browser*/
@@ -69,27 +81,6 @@ canvas {
     display:none;
 }
 
-.textbox_bg {
-    position:fixed;
-    left:0;
-    top:0;
-    z-index:-1;
-    width:100vw;
-    height:100vh;
-    padding:.5em;
-    /* background:green; */
-    color:white;
-    opacity:0;
-    transition: opacity .2s;
-    font-size:.5em;
-    line-height:1.2em;
-}
-
-.container {
-    display: flex;
-    flex-flow: column wrap;
-}
-
 .eye_container {
     position:relative;
     width:50vw;
@@ -97,12 +88,14 @@ canvas {
 
     display: grid;
         place-content: center;
+
         
-    filter: drop-shadow(6px 6px 8px white);
+    /* filter: drop-shadow(6px 6px 8px white); */
 }
 
 .left.eye_container {
     /* background:pink; */
+
 }
 
 .right.eye_container {
@@ -112,13 +105,13 @@ canvas {
 /* ?? This doesn't work?? */
 .window {
     border-radius: .5em;
-        background: pink;
+        background: transparent;
 }
 
 .textbox {
     /* ??Why doesn't width:100% inherit the 50vw of .eye_container? */
-    width:40vw;
-    height:auto;
+    width:50vw;
+    height:calc(100vh - 25vh - 15vh);
 
     display: grid;
         place-content: center;
@@ -127,17 +120,18 @@ canvas {
         font-size:1em;
         line-height:1em;
 
+        background:transparent;
+        
+
 }
 
 .textbox.left {
-    background:red;
-    background: white;
+    /* background: white; */
 }
 
 
 .textbox.right {
-    background:blue;
-    background:white;
+    /* background:white; */
     /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
         background-size: 400% 400%;
     animation: gradient 1s ease infinite; */
@@ -148,10 +142,17 @@ canvas {
     
     /* width: max-content; */
     position: absolute;
-    
 
+}
+
+.bottom_bar p {
+    display:inline;
+    width: max-content;
+    animation: marquee 8s linear infinite; 
+    text-decoration:underline;
+    color:yellow;
     /* animation: marquee 20s linear infinite;  */
-    /* left: var(--marquee-end); */
+        /* left: var(--marquee-end); */
 }
 
 .textbox p {
@@ -164,8 +165,6 @@ canvas {
 
 .top_bar, .bottom_bar {
     width: 100%;
-    min-height:5%;
-    padding:5%;
     display:flex;
     flex-flow:row wrap;
     align-items: center;
@@ -175,22 +174,27 @@ canvas {
 }
 
 .top_bar {
+    height: 25vh;
     background: linear-gradient(-45deg, darkgrey, white, lightgrey, grey);
         background-size: 400% 400%;
-        animation: gradient 1s ease infinite;
+    animation: gradient 1s ease infinite;
+    padding-left:5%;
+      
+}
+
+.right .top_bar {
+    /* ??This isn't working the way i want*/
+    animation-direction: reverse;
 }
 
 .bottom_bar {
+    height: 15vh;
     background:blue;
     font-size: 0.25em;
     /* ??This doesn't work. How do I hide the extra marquee without using masking in js, like for the textbox text? */
     overflow:hidden;
 }
 
-.bottom_bar p {
-    width: max-content;
-    animation: marquee 20s linear infinite; 
-}
 .quit_btn {
     width:15%;
     aspect-ratio: 1;
@@ -213,6 +217,29 @@ canvas {
     background:green;
 }
 
+.full_textbox {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center;
+    /* color:pink; */
+    /* background:khaki; */
+    overflow: hidden;
+}
+
+.full_textbox p {
+    max-height: calc(12vh);
+    white-space: nowrap;
+    width: fit-content;
+
+    animation: marquee 30s linear infinite;
+}
 
 @keyframes gradient {
     0% {
@@ -243,15 +270,12 @@ canvas {
         transform: translateX(100%);
     }
 
-    70% {
-        /* left: var(--marquee_end); */
-        transform: translateX(-200%);
+    5% {
+        transform: translateX(80%);
     }
-
-
     100% {
         /* left: var(--marquee_end); */
-        transform: translateX(-200%);
+        transform: translateX(-100%);
     }
 }
 
@@ -263,7 +287,6 @@ canvas {
     0% {
             transform: translateY(100%);
         }
-    
     
         100% {
             transform: translateY(0%);
