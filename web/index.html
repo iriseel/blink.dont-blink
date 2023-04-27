@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Don't Blink</title>
+        <title>bLink</title>
         
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>“ ”</text></svg>">
         <script
@@ -31,17 +31,23 @@
 
     <body>
 
-        <div class="black_screen"></div>
+        <div class="black_screen">
+            <div class="warning">
+                <p>
+                    This website contains flashing lights. If you still wish to proceed, click anywhere on screen.
+                </p>
+            </div>
+        </div>
 
         <div class="full_textbox">
-            <p></p>
+            <p class="scrolling"></p>
         </div>
 
         <div class="container">
             <div class="left eye_container">
                 <div class="window">
                     <div class="top_bar">
-                            <div class="quit_btn red">X</div>
+                            <div class="quit_btn red">&#215;</div>
                             <div class="quit_btn yellow">-</div>
                             <div class="quit_btn green">+</div>
                     </div>
@@ -61,7 +67,7 @@
             <div class="right eye_container">
                 <div class="window">
                     <div class="top_bar">
-                        <!-- <div class="quit_btn red">X</div>
+                        <!-- <div class="quit_btn red">&#215;</div>
                         <div class="quit_btn yellow">-</div>
                         <div class="quit_btn green">+</div> -->
                     </div>

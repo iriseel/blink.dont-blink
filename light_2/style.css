@@ -39,6 +39,15 @@ body {
     width:100vw;
     height:100vh;
     background:black;
+    display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+.warning {
+    font-size: .75em;
+    line-height: 1.25em;
+    max-width: 70%;
 }
 
 .container {
@@ -146,7 +155,7 @@ canvas {
 .textbox p {
     width: max-content;
     /* position: absolute; */
-    /* transform: translateX(100%); */
+    transform: translateX(100%);
 }
 
 .marquee_2s {
@@ -158,7 +167,7 @@ canvas {
 }
 
 .marquee_6s {
-    animation: marquee 16s linear infinite;
+    animation: marquee 6s linear infinite;
 }
 
 .marquee_7s {
@@ -166,7 +175,7 @@ canvas {
 }
 
 .marquee_9s {
-    animation: marquee 26s linear 3s infinite;
+    animation: marquee 9s linear infinite;
 }
 
 .marquee_10s {
@@ -176,6 +185,9 @@ canvas {
 .marquee_13s {
     animation: marquee 13s linear infinite;
 }
+.marquee_14s {
+    animation: marquee 14s linear infinite;
+}
 
 .marquee_16s {
     animation: marquee 16s linear infinite;
@@ -183,6 +195,27 @@ canvas {
 
 .marquee_20s {
     animation: marquee 20s linear infinite;
+}
+
+/* DELAYS */
+.marquee_1s_delay {
+    animation-delay: 1s;
+}
+
+.marquee_1-5s_delay {
+    animation-delay: 1.5s;
+}
+
+.marquee_2s_delay {
+    animation-delay: 2s;
+}
+
+.marquee_2-5s_delay {
+    animation-delay: 2.5s;
+}
+
+.marquee_3s_delay {
+    animation-delay: 3s;
 }
 
 

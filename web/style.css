@@ -6,7 +6,12 @@
 
 @font-face {
     font-family: impactN;
-    src: url(fonts/JLImpactNieuw-2019Trial.otf)
+    src: url(fonts/JLImpactNieuw-2019Trial.woff)
+}
+
+@font-face {
+    font-family: TTRoundsN;
+    src: url(fonts/TT\ Rounds\ Neue\ Black.otf)
 }
 
 html, * {
@@ -17,6 +22,8 @@ html, * {
 * {
     padding: 0;
     margin: 0;
+
+    /* filter: blur(20px); */
 }
 
 *::before, *::after{
@@ -41,10 +48,10 @@ body {
     background:black;
 
 }
-
+/* 
 .popup {
-    font-family: impactN, 'Helvetica', 'arial', sans-serif;
-}
+    font-family: TTRoundsN, 'Helvetica', 'arial', sans-serif;
+} */
 
 .black_screen {
     position:absolute;
@@ -54,6 +61,15 @@ body {
     width:100vw;
     height:100vh;
     background:black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.warning {
+    font-size:.75em;
+    line-height:1.25em;
+    max-width:70%;
 }
 
 .container {
@@ -138,21 +154,25 @@ canvas {
     
 }
 
-.textbox p, .bottom_bar p {
-    
+.textbox p,
+.bottom_bar p {
     /* width: max-content; */
     position: absolute;
 
 }
 
 .bottom_bar p {
-    display:inline;
+    display:inline-block;
     width: max-content;
     animation: marquee 8s linear infinite; 
     text-decoration:underline;
     color:yellow;
+    margin: 0 1em;
+    /* background:green; */
     /* animation: marquee 20s linear infinite;  */
         /* left: var(--marquee-end); */
+
+        overflow: hidden;
 }
 
 .textbox p {
@@ -162,11 +182,17 @@ canvas {
         padding:1em;
 }
 
+.left .bottom_bar p {
+    /* color:pink; */
+}
+.clone {
+    /* background: orange; */
+}
+
 
 .top_bar, .bottom_bar {
     width: 100%;
     display:flex;
-    flex-flow:row wrap;
     align-items: center;
 
     /* ?? why doesnt this padding work? */
@@ -174,6 +200,8 @@ canvas {
 }
 
 .top_bar {
+
+    flex-flow: row wrap;
     height: 25vh;
     background: linear-gradient(-45deg, darkgrey, white, lightgrey, grey);
         background-size: 400% 400%;
@@ -188,11 +216,18 @@ canvas {
 }
 
 .bottom_bar {
+    flex-flow: column wrap;
     height: 15vh;
-    background:blue;
+    background:linear-gradient(-45deg, rgba(0, 0, 255, 1) 0%,
+        rgba(0, 112, 255, 1) 54%);
+
+        background-size: 400% 400%;
+    
     font-size: 0.25em;
     /* ??This doesn't work. How do I hide the extra marquee without using masking in js, like for the textbox text? */
     overflow:hidden;
+
+    animation: gradient 1s ease infinite;
 }
 
 .quit_btn {
@@ -205,6 +240,8 @@ canvas {
     display:inline-flex;
     justify-content: center;
     align-items:center;
+
+    animation: spin 2s ease infinite;
 }
 
 .quit_btn.red {
@@ -218,16 +255,19 @@ canvas {
 }
 
 .full_textbox {
+
     width: 100vw;
     height: 100vh;
     position: fixed;
     left: 0;
     top: 0;
     z-index: -1;
-    display: flex;
+    /* display: flex;
     flex-flow: column wrap;
     justify-content: center;
-    align-content: center;
+    align-content: center; */
+    display: grid;
+    place-content: center;
     /* color:pink; */
     /* background:khaki; */
     overflow: hidden;
@@ -237,6 +277,10 @@ canvas {
     max-height: calc(12vh);
     white-space: nowrap;
     width: fit-content;
+
+}
+
+.scrolling {
 
     animation: marquee 30s linear infinite;
 }
@@ -270,12 +314,9 @@ canvas {
         transform: translateX(100%);
     }
 
-    5% {
-        transform: translateX(80%);
-    }
     100% {
         /* left: var(--marquee_end); */
-        transform: translateX(-100%);
+        transform: translateX(-400%);
     }
 }
 
@@ -291,4 +332,16 @@ canvas {
         100% {
             transform: translateY(0%);
         }
+}
+
+@keyframes spin {
+    0% {
+        transform:rotate(0);
+    }
+
+    30% {transform: rotate(3600deg);
+    }
+    100% {
+        transform:rotate(3600deg);
+    }
 }

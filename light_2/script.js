@@ -13,6 +13,9 @@ let index_left = 0;
 let index_right = 0;
 let bg_index = 0;
 
+let left_box;
+let right_box;
+
 const fonts = [
     "Bodoni, serif",
     "Helvetica, sans-serif",
@@ -41,18 +44,32 @@ const texts_left = [
     // "On the bright side, that same report found that people's ability to multitask drastically improved.",
 ];
 
-const animation_durations_left = [
-    "marquee_6s",
-    "marquee_5s",
-    "marquee_5s",
-    "marquee_9s",
-    "marquee_7s",
+const full_texts = [
+    "Desire travels at the speed of light",
+    "Focus your attention &nbsp; &nbsp; &nbsp; so that it can dissolve",
+    "Eye recognition &nbsp; &nbsp; &nbsp; I recognize you by what you have seen with your desiring eye.",
+    "An image is worth a thousand words &nbsp; &nbsp; &nbsp; But what about a look?",
+    "stare, blink, squint, gaze &nbsp; &nbsp; &nbsp; A morse code of desire",
 
-    "marquee_2s",
-    "marquee_2s",
-    "marquee_5s",
+    "short blink  &nbsp; &nbsp; &nbsp; dot",
+    "long blink  &nbsp; &nbsp; &nbsp; dash",
+    "So much to be said by seeing. What would it take to foster an eloquence of looking?",
 
-    "marquee_6s",
+    "The city that never sleeps  &nbsp; &nbsp; &nbsp; The empire on which the sun never sets",
+];
+
+const animation_delays_left = [
+    "marquee_1-5s_delay",
+    "marquee_1-5s_delay",
+    "marquee_1-5s_delay",
+    "marquee_1s_delay",
+    "marquee_1s_delay",
+
+    "marquee_1s_delay",
+    "marquee_1s_delay",
+    "marquee_1s_delay",
+
+    "marquee_1-5s_delay",
 ];
 
 const texts_right = [
@@ -75,15 +92,16 @@ const texts_right = [
 
 const animation_durations_right = [
     "marquee_6s",
-    "marquee_5s",
-    "marquee_16s",
-    "marquee_5s",
-    "marquee_5s",
+    "marquee_9s",
+    "marquee_13s",
+    "marquee_9s",
+    "marquee_7s",
 
     "marquee_2s",
     "marquee_2s",
+    "marquee_14s",
+
     "marquee_13s",
-    "marquee_9s",
 ];
 
 const texts_bg = [
@@ -126,9 +144,11 @@ let been_open = true;
 function generate_eye_div(id) {
     const eye_container = document.querySelector(`.${id}_container`);
 
-    const texts = id === "left" ? texts_left : texts_right;
-    const animation_durations =
-        id === "left" ? animation_durations_left : animation_durations_right;
+    // const texts = id === "left" ? texts_left : texts_right;
+    const texts = full_texts;
+    // const animation_durations =
+    //     id === "left" ? animation_durations_left : animation_durations_right;
+    const animation_durations = animation_durations_right;
     const index = id === "left" ? index_left : index_right;
 
     if (index_left > texts_left.length - 1) index_left = 0;
@@ -138,8 +158,9 @@ function generate_eye_div(id) {
     const animation_duration = animation_durations[index];
     // console.log({ index, animation_duration });
 
+    // select all words except &nbsp;
     const span_on_text = text_content.replace(
-        /\b\w+\b/g,
+        /\b(?!nbsp\b)\w+\b/g,
         "<span class='word' >$&</span>"
     );
 
@@ -151,6 +172,7 @@ function generate_eye_div(id) {
             eye.className = "";
             void eye.offsetWidth; // Trigger a reflow to restart the animation
             eye.classList.add(animation_duration);
+            eye.classList.add(animation_delays_left[index]);
         });
     } else if (id == "right") {
         const all_eyes_right = document.querySelectorAll(".textbox.right p");
@@ -198,6 +220,9 @@ function generate_eye_div(id) {
 
     paragraphEl.style.animationDuration = animation_duration + "s";
     paragraphEl.classList.add(animation_duration);
+    if (id === "left") {
+        paragraphEl.classList.add(animation_delays_left[index]);
+    }
 
     return {
         textDiv,
@@ -205,14 +230,6 @@ function generate_eye_div(id) {
         textBox: textboxDiv,
     };
 }
-
-// Initiate the eye divs
-const left_box = generate_eye_div("left");
-const right_box = generate_eye_div("right");
-// another way to write this would be:
-// const [left_box, right_box] = ["left", "right"].map((id) =>
-//     generate_eye_div(id)
-// );
 
 function add_eyes() {
     current_right_textbox = generate_eye_div("right");
@@ -237,7 +254,6 @@ let ended = false;
 //FACEMESH STUFF
 // Results Handler
 function onResults(results) {
-    remove_black_screen();
     //need this if statement, or else video freezes when it can't find the multiFaceLandmarks (e.g. when user has turned their head away from the camera)
     if (results.multiFaceLandmarks && !ended) {
         //needs [0] bc the array of results.multiFaceLandmarks has multiple things inside it, but facemesh points are stored in [0]
@@ -381,9 +397,6 @@ faceMesh.setOptions({
     minTrackingConfidence: 0.5,
 });
 
-// Event Listener
-faceMesh.onResults(onResults);
-
 // Create Camera
 const camera = new Camera(videoElement, {
     onFrame: async () => {
@@ -408,9 +421,20 @@ function map(in_val, in_min, in_max, out_min, out_max) {
 
 const round = (val) => Math.ceil(val / 20) * 20;
 
-function remove_black_screen() {
+document.body.addEventListener("click", () => {
     document.querySelector(".black_screen").style.display = "none";
-}
+
+    // Event Listener
+    faceMesh.onResults(onResults);
+
+    // Initiate the eye divs
+    left_box = generate_eye_div("left");
+    right_box = generate_eye_div("right");
+    // another way to write this would be:
+    // const [left_box, right_box] = ["left", "right"].map((id) =>
+    //     generate_eye_div(id)
+    // );
+});
 
 function clear_canvas() {
     mouthCanvasCtx.clearRect(
@@ -439,3 +463,20 @@ function randomize_font() {
         textdiv.style.fontFamily = randomFont;
     });
 }
+
+const warning = document.querySelector(".warning p");
+function randomize_font_warning() {
+    warning.innerHTML = warning.innerHTML.replace(
+        /\b(?!nbsp\b)\w+\b/g,
+        "<span class='word' >$&</span>"
+    );
+
+    const words = document.querySelectorAll(".warning .word");
+
+    words.forEach(function (word) {
+        let randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+        word.style.fontFamily = randomFont;
+    });
+}
+
+randomize_font_warning();

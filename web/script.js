@@ -11,16 +11,12 @@ const left_textbox = document.querySelector(".textbox.left");
 const right_textbox = document.querySelector(".textbox.right");
 const left_text = document.querySelector(".text.left");
 const right_text = document.querySelector(".text.right");
-//??Do I really need to define all this?
-const left_marquee = document
-    .querySelector(".left.eye_container")
-    .querySelector(".window")
-    .querySelector(".bottom_bar");
 
-const right_marquee = document
-    .querySelector(".right.eye_container")
-    .querySelector(".window")
-    .querySelector(".bottom_bar");
+const left_marquee = document.querySelector(".left.eye_container .bottom_bar");
+
+const right_marquee = document.querySelector(
+    ".right.eye_container .bottom_bar"
+);
 
 let index = 0;
 
@@ -103,18 +99,21 @@ marquees_right = [];
 
 const links = [
     // "https://en.wikipedia.org/wiki/Don%27t_Blink_(film)",
-    "https://youtu.be/jk6sz25OZgw",
+    // "https://youtu.be/jk6sz25OZgw?autoplay=0",
+    "https://vimeo.com/327611575",
     "https://www.bbc.co.uk/sounds/play/p04svtlv",
     "https://www.education.com/science-fair/article/bug-eyed/ ",
     "https://mayacfriedman.github.io/seduction-of-machines/",
     "https://www.oregonlive.com/entertainment/2015/05/109th_annual_staring_contest.html",
-    "https://youtu.be/SWgg20IqibM ",
+    // "https://youtu.be/SWgg20IqibM ",
+    "https://vimeo.com/18966431",
     "https://www.abc.net.au/local/photos/2011/09/24/3325159.htm",
     "https://www.wired.com/2002/11/fetishists-really-love-their-macs/",
     // "https://www.deviantart.com/shadowedhand/art/Miss-Bunny-gif-784412791",
     "https://www.newyorker.com/magazine/2023/02/27/darkness-manifesto-book-johan-eklof ",
     "https://www.scmp.com/news/people-culture/trending-china/article/3200731/too-harsh-parents-china-punish-son-watching-too-much-television-all-night-tv-binge-take-turns-keep",
-    "https://youtu.be/4woPg0-xyAA",
+    // "https://youtu.be/4woPg0-xyAA",
+    "https://3.bp.blogspot.com/-6saQ9u7ILBc/UZ3CJ0SmjdI/AAAAAAAADQs/6df5HjF37HU/s1600/aclockworkorange5.gif",
     "https://slate.com/news-and-politics/2021/08/russia-prison-tv-navalny.html",
     "https://www.theguardian.com/technology/2017/apr/18/netflix-competitor-sleep-uber-facebook",
     "https://time.com/3858309/attention-spans-goldfish/",
@@ -191,7 +190,12 @@ function change_text() {
         // void text_p.offsetHeight;
         // text_p.classList.add("scroll_up");
 
-        text_p.style.animation = text_anims[index];
+        // text_p.style.animation = text_anims[index];
+
+        text_p.className = "";
+        void text_p.offsetWidth;
+
+        text_p.classList.add("scrolling");
         console.log("animation", text_p.style.animation);
 
         randomize_color();
@@ -207,8 +211,12 @@ function change_text() {
 
 change_text();
 
-//??Something is not right with these marquee animations, frequent overlaps
+//??Something is not right with these marquee animations, sometimes restarts in middle of animation?
 function change_marquee() {
+    const marquee_clones = document.querySelectorAll(".clone");
+    marquee_clones.forEach(function (clone) {
+        clone.remove();
+    });
     const marquees = document.querySelectorAll(".bottom_bar");
     marquees.forEach(function (marquee) {
         const marquee_p = marquee.querySelector("p");
@@ -218,7 +226,11 @@ function change_marquee() {
         const marquee_p_clone = marquee_p.cloneNode(true);
         const marquee_p_clone2 = marquee_p.cloneNode(true);
 
+        marquee_p_clone.classList.add("clone");
+        marquee_p_clone2.classList.add("clone");
+
         marquee_p.insertAdjacentElement("afterend", marquee_p_clone);
+        //??Why doesn't this work? Why is + 5em not enough of a padding?
         marquee_p_clone.style.left = `calc(${marquee_p_width}px + 15em)`;
 
         marquee_p_clone.insertAdjacentElement("afterend", marquee_p_clone2);
@@ -233,18 +245,15 @@ let popupWidth_Max = 1300;
 let popupHeight_Min = 200;
 let popupHeight_Max = 900;
 
-//??Is it possible to customize the popup? I tried
-// .enhanceWithin()
-// .addClass("popup")
-//but they don't work :(
 function popup() {
     if (set_popup) {
-        if (counter > 0) {
-            //??This doesn't work on the first popup? And also doesn't work once you move or interact with a popup? Will also randomly no work like on the 8th popup?
+        if (counter > links.length - 2) counter = -1;
+        if (counter >= 0) {
+            //??This doesn't work all the popups with youtube videos in them?
             popup_w.close();
         }
         counter++;
-        // console.log(counter);
+        console.log("counter", counter);
         let popupWidth =
             Math.floor(Math.random() * (popupWidth_Max - popupWidth_Min + 1)) +
             popupWidth_Min;
@@ -258,8 +267,14 @@ function popup() {
         var topPos = Math.floor(Math.random() * (screenHeight - popupHeight));
 
         // Open the link at the random index in a new tab
+        // popup_w = window.open(
+        //     links[counter],
+        //     "popup",
+        //     `width=${popupWidth},height=${popupHeight}, left=${leftPos}, top=${topPos}`
+        // );
+
         popup_w = window.open(
-            links[counter],
+            `/html/popup${counter}.html`,
             "popup",
             `width=${popupWidth},height=${popupHeight}, left=${leftPos}, top=${topPos}`
         );
@@ -274,7 +289,6 @@ let ended = false;
 //FACEMESH STUFF
 // Results Handler
 function onResults(results) {
-    remove_black_screen();
     //need this if statement, or else video freezes when it can't find the multiFaceLandmarks (e.g. when user has turned their head away from the camera)
     if (results.multiFaceLandmarks && !ended) {
         //needs [0] bc the array of results.multiFaceLandmarks has multiple things inside it, but facemesh points are stored in [0]
@@ -480,9 +494,9 @@ function map(in_val, in_min, in_max, out_min, out_max) {
 
 const round = (val) => Math.ceil(val / 20) * 20;
 
-function remove_black_screen() {
+document.body.addEventListener("click", () => {
     document.querySelector(".black_screen").style.display = "none";
-}
+});
 
 function clear_canvas() {
     mouthCanvasCtx.clearRect(
