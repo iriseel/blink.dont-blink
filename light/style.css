@@ -39,6 +39,15 @@ body {
     width:100vw;
     height:100vh;
     background:black;
+    display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+.warning {
+    font-size: .75em;
+    line-height: 1.25em;
+    max-width: 70%;
 }
 
 .container {
@@ -75,7 +84,7 @@ canvas {
     color:white;
     opacity:0;
     transition: opacity .2s;
-    font-size:.5em;
+    font-size:.7em;
     line-height:1.2em;
 }
 
@@ -124,9 +133,10 @@ canvas {
 
         font-size:2em;
         
-    animation: glow 1s ease infinite;
+    /* animation: glow 1s ease infinite; */
 
     z-index:1;
+    
 }
 
 .textbox.left {
@@ -134,7 +144,6 @@ canvas {
 }
 
 .textbox.right {
-    background:blue;
     background:white;
     /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
         background-size: 400% 400%;
@@ -142,13 +151,73 @@ canvas {
     
 }
 
-/* ??Right now, marquee animations in each eye are not lining up bc each animation only starts once a new eye div is made, but that is usually while another animation is already running. So start times of all the animations are different, hence no sync */
+/* ??For some reason the characters are not exactly aligned across circles? */
 .textbox p {
     width: max-content;
     /* position: absolute; */
-    /* transform: translateX(100%); */
-    animation: marquee 10s linear infinite; 
+    transform: translateX(100%);
 }
+
+.marquee_2s {
+    animation: marquee 2s linear infinite;
+}
+
+.marquee_5s {
+    animation: marquee 5s linear infinite;
+}
+
+.marquee_6s {
+    animation: marquee 6s linear infinite;
+}
+
+.marquee_7s {
+    animation: marquee 7s linear infinite;
+}
+
+.marquee_9s {
+    animation: marquee 9s linear infinite;
+}
+
+.marquee_10s {
+    animation: marquee 10s linear infinite;
+}
+
+.marquee_13s {
+    animation: marquee 13s linear infinite;
+}
+.marquee_14s {
+    animation: marquee 14s linear infinite;
+}
+
+.marquee_16s {
+    animation: marquee 16s linear infinite;
+}
+
+.marquee_20s {
+    animation: marquee 20s linear infinite;
+}
+
+/* DELAYS */
+.marquee_1s_delay {
+    animation-delay: 1s;
+}
+
+.marquee_1-5s_delay {
+    animation-delay: 1.5s;
+}
+
+.marquee_2s_delay {
+    animation-delay: 2s;
+}
+
+.marquee_2-5s_delay {
+    animation-delay: 2.5s;
+}
+
+.marquee_3s_delay {
+    animation-delay: 3s;
+}
+
 
 #p_left_2, #p_right_2 {
     /* animation-delay: 5s; */
@@ -179,29 +248,16 @@ canvas {
 
 }
 
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
 @keyframes marquee {
     0% {
-        transform: translateX(80%);
+        transform: translateX(100%);
     }
 
     100% {
         /* left: var(--marquee_end); */
-        transform: translateX(-50%);
+        transform: translateX(-70%);
     }
+
 }
 
 @keyframes glow {

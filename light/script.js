@@ -9,7 +9,12 @@ const bg_text = document.querySelector(".textbox_bg");
 let current_left_textbox, current_right_textbox;
 
 let index = 0;
+let index_left = 0;
+let index_right = 0;
 let bg_index = 0;
+
+let left_box;
+let right_box;
 
 const fonts = [
     "Bodoni, serif",
@@ -23,33 +28,102 @@ const fonts = [
 
 const texts_left = [
     "Desire travels at the speed of light",
-    "A 2015 study found that the average Canadian attention span dropped from 12 to 8 seconds.",
-    "On the bright side, that same report found that people's ability to multitask drastically improved.",
+    "Focus your attention",
+    // "dazzled",
+    "Eye recognition:",
+    "An image is worth a thousand words",
+    "stare, blink, squint, gaze",
+
+    "short blink",
+    "long blink",
+    "So much to be said by seeing.",
+
+    "the city that never sleeps",
+
+    // "A 2015 study found that the average Canadian attention span dropped from 12 to 8 seconds.",
+    // "On the bright side, that same report found that people's ability to multitask drastically improved.",
+];
+
+const full_texts = [
+    "Desire travels at the speed of light",
+    "Focus your attention &nbsp; &nbsp; &nbsp; so that it can dissolve",
+    "Eye recognition &nbsp; &nbsp; &nbsp; I recognize you by what you have seen with your desiring eye.",
+    "An image is worth a thousand words &nbsp; &nbsp; &nbsp; But what about a look?",
+    "stare, blink, squint, gaze &nbsp; &nbsp; &nbsp; A morse code of desire",
+
+    "short blink  &nbsp; &nbsp; &nbsp; dot",
+    "long blink  &nbsp; &nbsp; &nbsp; dash",
+    "So much to be said by seeing. What would it take to foster an eloquence of looking?",
+
+    "The city that never sleeps  &nbsp; &nbsp; &nbsp; The empire on which the sun never sets",
+];
+
+const animation_delays_left = [
+    "marquee_1-5s_delay",
+    "marquee_1-5s_delay",
+    "marquee_1-5s_delay",
+    "marquee_1s_delay",
+    "marquee_1s_delay",
+
+    "marquee_1s_delay",
+    "marquee_1s_delay",
+    "marquee_1s_delay",
+
+    "marquee_1-5s_delay",
 ];
 
 const texts_right = [
     "Desire travels at the speed of light",
-    "The goldfish is rumoured to hold an attention span of 9 seconds.",
-    "It is unclear whether goldfish can multitask.",
+    "So that it can dissolve",
+    // "dazed",
+    "I recognize you by what you have seen with your desiring eye.",
+    "But what about a look?",
+    "A morse code of desire",
+
+    "dot",
+    "dash",
+    "What would it take to foster an eloquence of looking?",
+
+    "the empire on which the sun never sets",
+
+    // "The goldfish is rumoured to hold an attention span of 9 seconds.",
+    // "It is unclear whether goldfish can multitask.",
+];
+
+const animation_durations_right = [
+    "marquee_6s",
+    "marquee_9s",
+    "marquee_13s",
+    "marquee_9s",
+    "marquee_7s",
+
+    "marquee_2s",
+    "marquee_2s",
+    "marquee_14s",
+
+    "marquee_13s",
 ];
 
 const texts_bg = [
     "Jonathan Beller, <i>The Political Economy of the Postmodern</i>",
-    "Tracing the increasing marginalization of language by images in his “Language, Images and the Postmodern Predicament,” Wlad Godzich, probably borrowing from Roger Munier's pamphlet Against Images, puts it thus: “Where with language we have a discourse on the world, with human beings facing the world in order to name it, photography substitutes the simple appearance of things; it is a discourse of the world. . . . Images now allow for the paradox that the world states itself before human language.”",
-    "To register the crisis that the proliferation of images poses for language and thus for the conscious mind would be to agree with Godzich that today language is outpaced by images. “Images are scrambling the function of language which must operate out of the imaginary to function optimally.”27 The overall effect of an everincreasing quantity of images is the radical alienation of consciousness, its isolation and separation, its inability to convincingly “language” reality and thus its reduction to something on the order of a free-floating hallucination, cut away as it is from all ground.",
+    "Tracing the increasing marginalization of language by images in his “Language, Images and the Postmodern Predicament,” Wlad Godzich, probably borrowing from Roger Munier's pamphlet Against Images, puts it thus:",
+    "“Where with language we have a discourse on the world, with human beings facing the world in order to name it, photography substitutes the simple appearance of things; it is a discourse of the world. . . . Images now allow for the paradox that the world states itself before human language.”",
+    "To register the crisis that the proliferation of images poses for language and thus for the conscious mind would be to agree with Godzich that today language is outpaced by images.",
+    "“Images are scrambling the function of language which must operate out of the imaginary to function optimally.”",
+    "The overall effect of an everincreasing quantity of images is the radical alienation of consciousness, its isolation and separation, its inability to convincingly “language” reality and thus its reduction to something on the order of a free-floating hallucination, cut away as it is from all ground.",
     "When linked to the rise of image technologies, this demotion of language and of its capacity to slow down the movement of reality suggests, that the radical alienation of language, that is, the alienation of the subject and its principle means of self-expression and self-understanding, is a structural e¤ect of the intensification of capitalism and therefore, an instrumental strategy of domination.",
-    "In addition to Marx's description of the four-fold alienation produced by wage-labor (from the object, the self, other people, and the species), bodies become deprived of the power of speech. This image-consciousness, or better, image/consciousness in which consciousness is an afterthought of the spectacle, participates in the rendering of an intensified auratic component, theorized as “simulation” or “the simulacrum,” to nearly every aspect of social existence in the technologically permeated world. Beyond all reckoning, the objective world is newly regnant with an excess of sign value, or rather, with values exceeding the capacities of the sign.",
-    "Frenzied attempts to language “reality” (what appears) become hysterical because everything is a symptom of something else. Such a promiscuity of signification, what Baudrillard called “the ecstasy of communication,” implies, in short, a devaluation of signification— a radical instability, unanchoredness, and inconsistency of consciousness to such an extent that consciousness becomes unconsciousness by other means.28 In the onslaught of the spectacle, consciousness cannot take hold, it does not “take,” but rather roams and sputters in fits and starts.",
+    "In addition to Marx's description of the four-fold alienation produced by wage-labor (from the object, the self, other people, and the species), bodies become deprived of the power of speech. This image-consciousness, or better, image/consciousness in which consciousness is an afterthought of the spectacle, participates in the rendering of an intensified auratic component, theorized as “simulation” or “the simulacrum,” to nearly every aspect of social existence in the technologically permeated world.",
+    "Beyond all reckoning, the objective world is newly regnant with an excess of sign value, or rather, with values exceeding the capacities of the sign.",
+    "Frenzied attempts to language “reality” (what appears) become hysterical because everything is a symptom of something else. Such a promiscuity of signification, what Baudrillard called “the ecstasy of communication,” implies, in short, a devaluation of signification— a radical instability, unanchoredness, and inconsistency of consciousness to such an extent that consciousness becomes unconsciousness by other means.",
+    "In the onslaught of the spectacle, consciousness cannot take hold, it does not “take,” but rather roams and sputters in fits and starts.",
 ];
 
 const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
 
-let text_content = "";
-
 let textHeight;
-let textHeight_max = 70;
+let textHeight_max = 30;
 // let textWidth;
-let textWidth_max = 40;
+let textWidth_max = 15;
 let filter = 8;
 let filter_max = 8;
 let fontsize_max = 10;
@@ -67,11 +141,58 @@ let been_open = true;
 
 // Generate the HTML elements for each eye
 
-function generate_eye_div(id, text = "") {
+function generate_eye_div(id) {
     const eye_container = document.querySelector(`.${id}_container`);
-    //don't create mroe than 6 of each eye
+
+    // const texts = id === "left" ? texts_left : texts_right;
+    const texts = full_texts;
+    // const animation_durations =
+    //     id === "left" ? animation_durations_left : animation_durations_right;
+    const animation_durations = animation_durations_right;
+    const index = id === "left" ? index_left : index_right;
+
+    if (index_left > texts_left.length - 1) index_left = 0;
+    if (index_right > texts_right.length - 1) index_right = 0;
+
+    const text_content = texts[index];
+    const animation_duration = animation_durations[index];
+    // console.log({ index, animation_duration });
+
+    // select all words except &nbsp;
+    const span_on_text = text_content.replace(
+        /\b(?!nbsp\b)\w+\b/g,
+        "<span class='word' >$&</span>"
+    );
+
+    //makes sure all the left and right textboxes update to the same text
+    if (id == "left") {
+        const all_eyes_left = document.querySelectorAll(".textbox.left p");
+        all_eyes_left.forEach((eye) => {
+            eye.innerHTML = span_on_text;
+            eye.className = "";
+            void eye.offsetWidth; // Trigger a reflow to restart the animation
+            eye.classList.add(animation_duration);
+            eye.classList.add(animation_delays_left[index]);
+        });
+    } else if (id == "right") {
+        const all_eyes_right = document.querySelectorAll(".textbox.right p");
+        all_eyes_right.forEach((eye) => {
+            eye.innerHTML = span_on_text;
+            eye.className = "";
+            void eye.offsetWidth; // Trigger a reflow to restart the animation
+            // eye.classList.add("marquee");
+            eye.classList.add(animation_duration);
+        });
+    }
+
+    randomize_color();
+    randomize_font();
+
+    id === "left" ? index_left++ : index_right++;
+
+    //don't create more than 6 of each eye
     if (eye_container.childNodes.length >= 7) return;
-    console.log(eye_container.childNodes.length);
+    // console.log(eye_container.childNodes.length);
     const windowDiv = document.createElement("div");
     windowDiv.classList.add("window");
     const textboxDiv = document.createElement("div");
@@ -81,17 +202,28 @@ function generate_eye_div(id, text = "") {
     textDiv.setAttribute("data-loc", id);
     const paragraphEl = document.createElement("p");
     paragraphEl.id = "p_" + id + "_" + eye_container.childNodes.length;
-    paragraphEl.innerHTML = text;
     //??What is happening when I'm adding an img??
-    const img = document.createElement("div");
-    img.classList.add("image");
-    textDiv.appendChild(img);
+    // const img = document.createElement("div");
+    // img.classList.add("image");
+    // textDiv.appendChild(img);
     textDiv.appendChild(paragraphEl);
     textboxDiv.appendChild(textDiv);
     windowDiv.appendChild(textboxDiv);
     eye_container.appendChild(windowDiv);
 
-    console.log("called", id);
+    windowDiv.style.zIndex = 10 - eye_container.childNodes.length;
+
+    paragraphEl.innerHTML = span_on_text;
+
+    randomize_color();
+    randomize_font();
+
+    paragraphEl.style.animationDuration = animation_duration + "s";
+    paragraphEl.classList.add(animation_duration);
+    if (id === "left") {
+        paragraphEl.classList.add(animation_delays_left[index]);
+    }
+
     return {
         textDiv,
         paragraphEl,
@@ -99,66 +231,9 @@ function generate_eye_div(id, text = "") {
     };
 }
 
-// Initiate the eye divs
-const left_box = generate_eye_div("left");
-const right_box = generate_eye_div("right");
-// another way to write this would be:
-// const [left_box, right_box] = ["left", "right"].map((id) =>
-//     generate_eye_div(id)
-// );
-
-//using this set_text boolean so that index doesn't change like 10 times per blink, since onResults() is being called super quickly. Instead it only changes max once per 150ms
-function change_text(text, texts) {
-    if (set_text) {
-        const text_p = text.querySelector("p");
-        const eye_orientation = text.getAttribute("data-loc");
-        set_text = false;
-        index++;
-        if (index > texts.length - 1) index = 0;
-        text_content = texts[index];
-        text_p.innerHTML = text_content;
-        const character_count = text_content.length;
-        text_p.style.setProperty("--marquee_end", -`${character_count}em`);
-        //??Why does this return NaN?
-        // console.log(getComputedStyle(text_p).getPropertyValue("--marquee_end"));
-        // console.log(character_count);
-        // console.log(index, text);
-        const span_on_text = text.textContent.replace(
-            /\b\w+\b/g,
-            "<span class='word' >$&</span>"
-        );
-
-        text_p.innerHTML = span_on_text;
-
-        if (eye_orientation == "left" && current_left_textbox) {
-            current_left_textbox.paragraphEl.innerHTML = span_on_text;
-        } else if (eye_orientation == "right" && current_right_textbox) {
-            current_right_textbox.paragraphEl.innerHTML = span_on_text;
-        }
-
-        randomize_color();
-        randomize_font(left_box.textDiv);
-        randomize_font(right_box.textDiv);
-
-        setTimeout(() => (set_text = true), 150);
-    }
-}
-
 function add_eyes() {
-    const right_text = texts_right[index].replace(
-        /\b\w+\b/g,
-        "<span class='word' >$&</span>"
-    );
-
-    const left_text = texts_left[index].replace(
-        /\b\w+\b/g,
-        "<span class='word' >$&</span>"
-    );
-
-    current_right_textbox = generate_eye_div("right", right_text);
-    current_left_textbox = generate_eye_div("left", left_text);
-
-    randomize_color();
+    current_right_textbox = generate_eye_div("right");
+    current_left_textbox = generate_eye_div("left");
 }
 
 function change_bgtext(text, texts) {
@@ -179,7 +254,6 @@ let ended = false;
 //FACEMESH STUFF
 // Results Handler
 function onResults(results) {
-    remove_black_screen();
     //need this if statement, or else video freezes when it can't find the multiFaceLandmarks (e.g. when user has turned their head away from the camera)
     if (results.multiFaceLandmarks && !ended) {
         //needs [0] bc the array of results.multiFaceLandmarks has multiple things inside it, but facemesh points are stored in [0]
@@ -239,7 +313,6 @@ function set_eye_height(
     if (eye_face_ratio <= 200) {
         textHeight = 0;
         filter = 0;
-        // make_new_textbox();
 
         //checking if eyes are closed
         if (side_box === left_box) {
@@ -251,9 +324,9 @@ function set_eye_height(
         if (left_closed && right_closed && been_open) {
             change_bgtext(bg_text, texts_bg);
             add_eyes();
+            console.log("closed");
             been_open = false;
         }
-        change_text(side_box.textDiv, texts);
     } else {
         //eyes are open
         if (side_box === left_box) {
@@ -293,14 +366,15 @@ function set_eye_height(
 function setTextBoxHeight(selector, text_height) {
     const textboxes = document.querySelectorAll(selector);
     textboxes.forEach((txtbox, index) => {
-        let th = Math.floor(text_height - index * 6);
-        //if th is less than 0, return 0 for th (or else eyes never close), or else just return th
-        th = th <= 0 ? 0 : th;
-        let tw = Math.floor(textWidth_max - index * 6);
-        tw = tw <= 0 ? 0 : tw;
+        let th = Math.floor(text_height + index * 7);
+        //if th is equal to or less than index * 6, that means text_height is 0, so return 0 for th (or else eyes never close), or else just return th
+        th = th <= index * 7 ? 0 : th;
+        let tw = Math.floor(textWidth_max + index * 6);
+        tw = tw <= index * 6 ? 0 : tw;
 
         txtbox.style.height = `${th}vh`;
         txtbox.style.width = `${tw}vw`;
+
         // txtbox.style.fontSize = `${Math.abs(
         //     Math.floor(fontsize_max - index * 3)
         // )}vh`;
@@ -322,9 +396,6 @@ faceMesh.setOptions({
     minDetectionConfidence: 0.5,
     minTrackingConfidence: 0.5,
 });
-
-// Event Listener
-faceMesh.onResults(onResults);
 
 // Create Camera
 const camera = new Camera(videoElement, {
@@ -350,9 +421,20 @@ function map(in_val, in_min, in_max, out_min, out_max) {
 
 const round = (val) => Math.ceil(val / 20) * 20;
 
-function remove_black_screen() {
+document.body.addEventListener("click", () => {
     document.querySelector(".black_screen").style.display = "none";
-}
+
+    // Event Listener
+    faceMesh.onResults(onResults);
+
+    // Initiate the eye divs
+    left_box = generate_eye_div("left");
+    right_box = generate_eye_div("right");
+    // another way to write this would be:
+    // const [left_box, right_box] = ["left", "right"].map((id) =>
+    //     generate_eye_div(id)
+    // );
+});
 
 function clear_canvas() {
     mouthCanvasCtx.clearRect(
@@ -361,12 +443,6 @@ function clear_canvas() {
         mouthCanvasElement.width,
         mouthCanvasElement.height
     );
-}
-
-function make_new_textbox() {
-    const new_textbox = document.createElement("div");
-    new_textbox.classList.add("textbox");
-    document.querySelector(".container").appendChild(new_textbox);
 }
 
 function randomize_color() {
@@ -380,7 +456,27 @@ function randomize_color() {
     });
 }
 
-function randomize_font(e) {
-    let randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-    e.style.fontFamily = randomFont;
+function randomize_font() {
+    const textdivs = document.querySelectorAll(".textbox p");
+    textdivs.forEach(function (textdiv) {
+        let randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+        textdiv.style.fontFamily = randomFont;
+    });
 }
+
+const warning = document.querySelector(".warning p");
+function randomize_font_warning() {
+    warning.innerHTML = warning.innerHTML.replace(
+        /\b(?!nbsp\b)\w+\b/g,
+        "<span class='word' >$&</span>"
+    );
+
+    const words = document.querySelectorAll(".warning .word");
+
+    words.forEach(function (word) {
+        let randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+        word.style.fontFamily = randomFont;
+    });
+}
+
+randomize_font_warning();

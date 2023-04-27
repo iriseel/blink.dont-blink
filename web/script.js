@@ -385,7 +385,7 @@ function set_eye_height(
 
     let text_coords = textbox.getBoundingClientRect();
 
-    svg_path = "";
+    let svg_path = "";
     // must input these paths in order (as if drawing the polygon)
     svg_path += `${text_coords.left},${text_coords.top} `;
     svg_path += `${text_coords.right},${text_coords.top} `;
