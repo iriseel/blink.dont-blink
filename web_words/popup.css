@@ -1,0 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: impactN;
+    src: url(fonts/JLImpactNieuw-2019Trial.woff)
+}
+
+body {
+    background:black;
+    color:white;
+    font-size:100px;
+    overflow:hidden;
+    font-family: impactN, 'Helvetica', 'arial', sans-serif;
+}
+
+.popup {
+    /* background:pink; */
+    text-align:center;
+}

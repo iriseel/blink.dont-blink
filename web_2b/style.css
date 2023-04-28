@@ -1,0 +1,328 @@
+@property --marquee-end {
+    syntax: '<number>';
+    initial-value: 0;
+    inherits: false;
+}
+
+@font-face {
+    font-family: impactN;
+    src: url(fonts/JLImpactNieuw-2019Trial.woff)
+}
+
+@font-face {
+    font-family: TTRoundsN;
+    src: url(fonts/TT\ Rounds\ Neue\ Black.otf)
+}
+
+html, * {
+    box-sizing: border-box;
+    
+}
+
+* {
+    padding: 0;
+    margin: 0;
+
+    /* filter: blur(20px); */
+}
+
+*::before, *::after{
+    box-sizing: inherit;
+}
+
+
+body {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+
+    font-family: impactN, 'Helvetica', 'arial', sans-serif;
+    font-size: 10vh;
+    line-height: 12vh;
+    color: white;
+    /* text-shadow: 4px 4px 4px black; */
+
+    background:black;
+
+}
+/* 
+.popup {
+    font-family: TTRoundsN, 'Helvetica', 'arial', sans-serif;
+} */
+
+.black_screen {
+    position:absolute;
+    z-index:10;
+    left:0;
+    top:0;
+    width:100vw;
+    height:100vh;
+    background:black;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.warning {
+    font-size:.75em;
+    line-height:1.25em;
+    max-width:70%;
+}
+
+.container {
+    width:inherit;
+    height:inherit;
+    position:relative;
+
+    display: flex;
+        flex-flow: column wrap;
+}
+
+/*width and height stretch the 1280px x 720px canvas to fill the browser*/
+canvas {
+    width:100vw;
+    height:100vh;
+    position:fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    transition: filter 1s, width 1s, height 1s, top 1s, left 1s;
+}
+
+.input_video {
+    display:none;
+}
+
+.eye_container {
+    position:relative;
+    width:50vw;
+    height:100vh;
+
+    display: grid;
+        place-content: center;
+
+        
+    /* filter: drop-shadow(6px 6px 8px white); */
+}
+
+.left.eye_container {
+    /* background:pink; */
+
+}
+
+.right.eye_container {
+    /* background: green; */
+}
+
+/* ?? This doesn't work?? */
+.window {
+    border-radius: .5em;
+        background: transparent;
+}
+
+.textbox {
+    /* ??Why doesn't width:100% inherit the 50vw of .eye_container? */
+    width:50vw;
+    height:calc(100vh - 25vh - 15vh);
+
+    display: grid;
+        place-content: center;
+
+        /* font-size:2em; */
+        font-size:1em;
+        line-height:1em;
+
+        background:transparent;
+        
+
+}
+
+.textbox.left {
+    /* background: white; */
+}
+
+
+.textbox.right {
+    /* background:white; */
+    /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+    animation: gradient 1s ease infinite; */
+    
+}
+
+.textbox p,
+.bottom_bar p {
+    /* width: max-content; */
+    position: absolute;
+
+}
+
+.bottom_bar p {
+    pointer-events:none;
+    display:inline-block;
+    width: max-content;
+    animation: marquee 30s linear infinite; 
+    /* text-decoration:underline; */
+    color:yellow;
+    margin: 0 1em;
+    /* background:green; */
+    /* animation: marquee 20s linear infinite;  */
+        /* left: var(--marquee-end); */
+
+        overflow: hidden;
+}
+
+a:visited {
+    color: yellow;
+}
+
+.textbox p {
+    left: 0;
+        top: 0;
+        transform:translateY(50%);
+        padding:1em;
+}
+
+.left .bottom_bar p {
+    /* color:pink; */
+}
+.clone {
+    /* background: orange; */
+}
+
+
+.top_bar, .bottom_bar {
+    width: 100%;
+    display:flex;
+    align-items: center;
+
+    /* ?? why doesnt this padding work? */
+    /* padding:5%; */
+}
+
+.top_bar {
+
+    flex-flow: row wrap;
+    height: 25vh;
+    background: linear-gradient(-45deg, darkgrey, white, lightgrey, grey);
+        background-size: 400% 400%;
+    animation: gradient 1s ease infinite;
+    padding-left:5%;
+      
+}
+
+.right .top_bar {
+    /* ??This isn't working the way i want*/
+    animation-direction: reverse;
+}
+
+.bottom_bar {
+    flex-flow: column wrap;
+    height: 15vh;
+    background:linear-gradient(-45deg, rgba(0, 0, 255, 1) 0%,
+        rgba(0, 112, 255, 1) 54%);
+
+        background-size: 400% 400%;
+    
+    font-size: 0.25em;
+    /* ??This doesn't work. How do I hide the extra marquee without using masking in js, like for the textbox text? */
+    overflow:hidden;
+
+    animation: gradient 1s ease infinite;
+}
+
+.quit_btn {
+    width:15%;
+    aspect-ratio: 1;
+    margin: 0 2%;
+    font-size:.4em;
+    color:black;
+    border-radius:50%;
+    display:inline-flex;
+    justify-content: center;
+    align-items:center;
+
+    animation: spin 2s ease infinite;
+}
+
+.quit_btn.red {
+    background:red;
+}
+.quit_btn.yellow {
+    background:yellow;
+}
+.quit_btn.green {
+    background:green;
+}
+
+.full_textbox {
+
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    /* display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-content: center; */
+    display: grid;
+    place-content: center;
+    /* color:pink; */
+    /* background:khaki; */
+    overflow: hidden;
+}
+
+.full_textbox p {
+    max-height: calc(12vh);
+    white-space: nowrap;
+    width: fit-content;
+
+}
+
+.marquee {
+    transform-origin:left;
+    animation: marquee 30s linear infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(70%);
+    }
+
+    100% {
+        /* left: var(--marquee_end); */
+        transform: translateX(-60%);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform:rotate(0);
+    }
+
+    30% {transform: rotate(3600deg);
+    }
+    100% {
+        transform:rotate(3600deg);
+    }
+}

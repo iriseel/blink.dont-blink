@@ -258,6 +258,8 @@ function onResults(results) {
     if (results.multiFaceLandmarks && !ended) {
         //needs [0] bc the array of results.multiFaceLandmarks has multiple things inside it, but facemesh points are stored in [0]
         if (results.multiFaceLandmarks[0]) {
+            //remove black screen
+            document.querySelector(".black_screen").style.display = "none";
             mouthCanvasCtx.save();
 
             clear_canvas();
@@ -421,9 +423,9 @@ function map(in_val, in_min, in_max, out_min, out_max) {
 
 const round = (val) => Math.ceil(val / 20) * 20;
 
-document.body.addEventListener("click", () => {
-    document.querySelector(".black_screen").style.display = "none";
+window.addEventListener("click", init);
 
+function init() {
     // Event Listener
     faceMesh.onResults(onResults);
 
@@ -434,7 +436,9 @@ document.body.addEventListener("click", () => {
     // const [left_box, right_box] = ["left", "right"].map((id) =>
     //     generate_eye_div(id)
     // );
-});
+
+    window.removeEventListener("click", init);
+}
 
 function clear_canvas() {
     mouthCanvasCtx.clearRect(

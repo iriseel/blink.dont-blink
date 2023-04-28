@@ -25,122 +25,16 @@ const full_textbox = document.querySelector(".full_textbox");
 let left_textcoords = [];
 let right_textcoords = [];
 
-const fonts = [
-    "Bodoni, serif",
-    "Helvetica, sans-serif",
-    "Futura, sans-serif",
-    // "Univers, sans-serif",
-    "Pico, sans-serif",
-    "proxima-nova, sans-serif",
-    "myriad-pro, sans-serif",
-];
-
-const texts = [
-    "DON'T BLINK! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(3),
-    "Shocking Truth Revealed: Why We're Addicted to our Phones and Can't Look Away! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Animal Vision: What You Didn't Know About Ocelli, Compound Eyes, and Camera Eyes - Mind Blowing! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Are Your Devices Killing Your Love Life? The Surprising Science Behind Intimate Machines and Arousal. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Annual Staring Contest in Portland: Can You Handle the Eye-Straining Tension? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Big Train Staring Final: Who Will Emerge Victorious in this Epic Battle of Wills? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Eyesore Wins 40-Minute Staring Competition - The Shocking Upset You Didn't See Coming! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Macs and Fetishes: The Surprising Link You Need to Know About! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Is Our Planet Doomed? The Shocking Truth About How Artificial Light is Poisoning Our Environment. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Parents Punish Son with All-Night TV Binge - Is This the Craziest Punishment Ever? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Clockwork Orange Ludovico Technique: What You Need to Know About This Infamous Mind Control Method. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Political Prisoners Forced to Watch State TV in Russia - The Shocking Reality You Didn't Know About! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Move Over Netflix, Sleep is Your Biggest Streaming Competitor! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Are You Smarter Than a Goldfish? Shocking New Study Reveals the Truth About Your Attention Span. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Attention Span Myth Debunked - What You Really Need to Know! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Blue Light: The Silent Killer of Your Vision? Find Out Now! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Actor Sets Unbelievable Blinking Record - How Did He Do It? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Surprising Reason Why So Many People Need Glasses Now - You Won't Believe It! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Unbelievable Morse Code Message Admiral Jeremiah Denton Sent Using Just His Blinks - Mind Blowing! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-];
-
 marquees_left = [];
 
 marquees_right = [];
 
-const links = [
-    // "https://en.wikipedia.org/wiki/Don%27t_Blink_(film)",
-    // "https://youtu.be/jk6sz25OZgw?autoplay=0",
-    "https://vimeo.com/327611575",
-    "https://www.bbc.co.uk/sounds/play/p04svtlv",
-    "https://www.education.com/science-fair/article/bug-eyed/ ",
-    "https://mayacfriedman.github.io/seduction-of-machines/",
-    "https://www.oregonlive.com/entertainment/2015/05/109th_annual_staring_contest.html",
-    // "https://youtu.be/SWgg20IqibM ",
-    "https://vimeo.com/18966431",
-    "https://www.abc.net.au/local/photos/2011/09/24/3325159.htm",
-    "https://www.wired.com/2002/11/fetishists-really-love-their-macs/",
-    // "https://www.deviantart.com/shadowedhand/art/Miss-Bunny-gif-784412791",
-    "https://www.newyorker.com/magazine/2023/02/27/darkness-manifesto-book-johan-eklof ",
-    "https://www.scmp.com/news/people-culture/trending-china/article/3200731/too-harsh-parents-china-punish-son-watching-too-much-television-all-night-tv-binge-take-turns-keep",
-    // "https://youtu.be/4woPg0-xyAA",
-    "https://3.bp.blogspot.com/-6saQ9u7ILBc/UZ3CJ0SmjdI/AAAAAAAADQs/6df5HjF37HU/s1600/aclockworkorange5.gif",
-    "https://slate.com/news-and-politics/2021/08/russia-prison-tv-navalny.html",
-    "https://www.theguardian.com/technology/2017/apr/18/netflix-competitor-sleep-uber-facebook",
-    "https://time.com/3858309/attention-spans-goldfish/",
-    "https://www.bbc.com/news/health-38896790",
-    "https://www.aao.org/eye-health/tips-prevention/should-you-be-worried-about-blue-light ",
-    "https://www.upi.com/Odd_News/2019/10/08/Actor-goes-1-hour-17-minutes-3-seconds-without-blinking/5801570550478/",
-    "https://youtu.be/LAkFtka3UFw",
-    "https://youtu.be/rufnWLVQcKg",
-];
+const text =
+    "In the race for attention, because there’s only so much attention, companies have to get more and more aggressive. I call it the race to the bottom of the brain stem. So it starts with techniques like pull to refresh, so you pull to refresh your newsfeed, that operates liek a slot machine, it has the same kind of addictive qualities that people in Las Vegas hooked to the slot machine. … But the race for attention has to get more and more aggressive. And so it’s not enough to just to get your behavior and predict what will take your behavior, we have to predict how to keep you hooked in a different way. And so, it crawls deeper down the brain stem, into our social validation. That was the introduciton of likes and followers, how many followers do i have. And it was much cheaper, instead of getting your attention, to get you addicted to getting attention from other people. … And in the race for attention, it’s not enough just to get people addicted to attention, the race has to migrate to AI. Who can build a better predictive model of your behavior?";
 
-//??How to get these text animations right??
-const text_anims = [
-    "marquee 8s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 50s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-    "marquee 30s linear infinite",
-];
+// const text =
+//     "The average attention span for the notoriously ill-focused goldfish is nine seconds, but according to a new study from Microsoft Corp., people now generally lose concentration after eight seconds, highlighting the affects of an increasingly digitalized lifestyle on the brain. Researchers in Canada surveyed 2,000 participants and studied the brain activity of 112 others using electroencephalograms (EEGs). Microsoft found that since the year 2000 (or about when the mobile revolution began) the average attention span dropped from 12 seconds to eight seconds. “Heavy multi-screeners find it difficult to filter out irrelevant stimuli — they’re more easily distracted by multiple streams of media,” the report read. On the positive side, the report says our ability to multitask has drastically improved in the mobile age. Microsoft theorized that the changes were a result of the brain’s ability to adapt and change itself over time and a weaker attention span may be a side effect of evolving to a mobile Internet. The survey also confirmed generational differences for mobile use; for example, 77% of people aged 18 to 24 responded “yes” when asked, “When nothing is occupying my attention, the first thing I do is reach for my phone,” compared with only 10% of those over the age of 65. And now congratulate yourself for concentrating long enough to make it through this article.";
+const text_words = text.split(" ");
 
 const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
 
@@ -166,120 +60,63 @@ let been_open = true;
 function change_text() {
     if (set_text) {
         const text_p = full_textbox.querySelector("p");
-        console.log(text_p);
+
         set_text = false;
-        if (index > texts.length - 1) index = 0;
-        text_content = texts[index];
-
-        text_p.innerHTML = text_content;
-        const character_count = text_content.length;
-
-        text_p.style.setProperty("--marquee_end", -`${character_count}em`);
-        //??Why does this return NaN?
-        // console.log(window.getComputedStyle(text_p, null));
-        // console.log(character_count);
-        // console.log(index, text);
 
         text_p.innerHTML = text_p.textContent.replace(
             /\b\w+\b/g,
             "<span class='word' >$&</span>"
         );
 
-        // text_p.classList.remove("scroll_up");
-        // text_p.className = "";
-        // void text_p.offsetHeight;
-        // text_p.classList.add("scroll_up");
-
-        // text_p.style.animation = text_anims[index];
-
-        text_p.className = "";
-        void text_p.offsetWidth;
-
-        text_p.classList.add("scrolling");
-        console.log("animation", text_p.style.animation);
-
         randomize_color();
-        randomize_font(left_text);
-        randomize_font(right_text);
 
-        change_marquee();
-
-        index++;
         setTimeout(() => (set_text = true), 150);
     }
 }
 
 change_text();
 
-//??Something is not right with these marquee animations, sometimes restarts in middle of animation?
-function change_marquee() {
-    const marquee_clones = document.querySelectorAll(".clone");
-    marquee_clones.forEach(function (clone) {
-        clone.remove();
-    });
-    const marquees = document.querySelectorAll(".bottom_bar");
-    marquees.forEach(function (marquee) {
-        const marquee_p = marquee.querySelector("p");
-        marquee_p.innerHTML = `${links[index]}`;
-
-        const marquee_p_width = marquee_p.offsetWidth;
-        const marquee_p_clone = marquee_p.cloneNode(true);
-        const marquee_p_clone2 = marquee_p.cloneNode(true);
-
-        marquee_p_clone.classList.add("clone");
-        marquee_p_clone2.classList.add("clone");
-
-        marquee_p.insertAdjacentElement("afterend", marquee_p_clone);
-        //??Why doesn't this work? Why is + 5em not enough of a padding?
-        marquee_p_clone.style.left = `calc(${marquee_p_width}px + 15em)`;
-
-        marquee_p_clone.insertAdjacentElement("afterend", marquee_p_clone2);
-        marquee_p_clone2.style.left = `calc((${marquee_p_width}px + 15em)*2)`;
-    });
-}
-
-let counter = -1;
+let counter = 0;
 let popup_w;
-let popupWidth_Min = 100;
-let popupWidth_Max = 1300;
-let popupHeight_Min = 200;
-let popupHeight_Max = 900;
+let popupHeight = 150;
 
+//index resets while counter does not
 function popup() {
     if (set_popup) {
-        if (counter > links.length - 2) counter = -1;
-        if (counter >= 0) {
-            //??This doesn't work all the popups with youtube videos in them?
-            popup_w.close();
-        }
-        counter++;
+        if (index > text_words.length - 1) index = 0;
         console.log("counter", counter);
-        let popupWidth =
-            Math.floor(Math.random() * (popupWidth_Max - popupWidth_Min + 1)) +
-            popupWidth_Min;
-        let popupHeight =
-            Math.floor(
-                Math.random() * (popupHeight_Max - popupHeight_Min + 1)
-            ) + popupHeight_Min;
+        const character_count = text_words[index].length;
+        let popupWidth = character_count * 100;
+        // console.log("popup width", popupWidth);
+
         const screenWidth = window.screen.availWidth;
         const screenHeight = window.screen.availHeight;
         var leftPos = Math.floor(Math.random() * (screenWidth - popupWidth));
         var topPos = Math.floor(Math.random() * (screenHeight - popupHeight));
 
-        // Open the link at the random index in a new tab
-        // popup_w = window.open(
-        //     links[counter],
-        //     "popup",
-        //     `width=${popupWidth},height=${popupHeight}, left=${leftPos}, top=${topPos}`
-        // );
+        var popupName = "Popup" + counter;
 
         popup_w = window.open(
-            `/html/popup${counter}.html`,
-            "popup",
+            "",
+            popupName,
             `width=${popupWidth},height=${popupHeight}, left=${leftPos}, top=${topPos}`
         );
 
-        console.log("index", index);
+        popup_w.document.write(
+            `<html><head><link rel="stylesheet" href="popup.css" /><title>Popup</title></head><body>
+            <div class="popup">${text_words[index]}</div>
+            <script src="popup.js"></script>
+            </body></html>`
+        );
+
+        //tried this to get max size text to random popupWidth
+        //         popup_w.document.write(
+        //             `<html><head><script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        // <script src="jquery.fittext.js"></script><script>jQuery(".popup").fitText();</script><link rel="stylesheet" href="popup.css" /><title>Popup</title></head><body><div class="popup">${text_words[counter]}</div></body></html>`
+        //         );
+
+        counter++;
+        index++;
     }
 }
 
@@ -467,9 +304,6 @@ faceMesh.setOptions({
     minTrackingConfidence: 0.5,
 });
 
-// Event Listener
-faceMesh.onResults(onResults);
-
 // Create Camera
 const camera = new Camera(videoElement, {
     onFrame: async () => {
@@ -496,8 +330,16 @@ const round = (val) => Math.ceil(val / 20) * 20;
 
 window.addEventListener("click", init);
 
+//for testing
+// window.addEventListener("click", function () {
+//     popup();
+// });
+
 function init() {
     document.querySelector(".black_screen").style.display = "none";
+
+    // Event Listener
+    faceMesh.onResults(onResults);
 
     window.removeEventListener("click", init);
 }
@@ -518,11 +360,6 @@ function randomize_color() {
             const randomColor =
                 colors[Math.floor(Math.random() * colors.length)];
             word.style.color = randomColor;
-        }, 500);
+        }, 250);
     });
-}
-
-function randomize_font(e) {
-    let randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-    e.style.fontFamily = randomFont;
 }

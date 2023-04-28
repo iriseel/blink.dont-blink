@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+@font-face {
+    font-family: impactN;
+    src: url(fonts/JLImpactNieuw-2019Trial.woff)
+}
+
+body {
+    background:black;
+    color:white;
+    font-size:100px;
+    overflow:hidden;
+    font-family: impactN, 'Helvetica', 'arial', sans-serif;
+
+}
+
+.popup {
+    width:100vw;
+    height:100vh;
+/* background: linear-gradient(45deg, red, green, blue); */
+    /* background-size: 400% 400%; */
+    animation: gradient 1s ease infinite;
+
+    filter: blur(60px);
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}

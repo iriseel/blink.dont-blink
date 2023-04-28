@@ -25,104 +25,158 @@ const full_textbox = document.querySelector(".full_textbox");
 let left_textcoords = [];
 let right_textcoords = [];
 
-const fonts = [
-    "Bodoni, serif",
-    "Helvetica, sans-serif",
-    "Futura, sans-serif",
-    // "Univers, sans-serif",
-    "Pico, sans-serif",
-    "proxima-nova, sans-serif",
-    "myriad-pro, sans-serif",
-];
-
-const texts = [
-    "DON'T BLINK! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(3),
-    "Shocking Truth Revealed: Why We're Addicted to our Phones and Can't Look Away! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Animal Vision: What You Didn't Know About Ocelli, Compound Eyes, and Camera Eyes - Mind Blowing! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Are Your Devices Killing Your Love Life? The Surprising Science Behind Intimate Machines and Arousal. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Annual Staring Contest in Portland: Can You Handle the Eye-Straining Tension? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Big Train Staring Final: Who Will Emerge Victorious in this Epic Battle of Wills? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Eyesore Wins 40-Minute Staring Competition - The Shocking Upset You Didn't See Coming! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Macs and Fetishes: The Surprising Link You Need to Know About! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Is Our Planet Doomed? The Shocking Truth About How Artificial Light is Poisoning Our Environment. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Parents Punish Son with All-Night TV Binge - Is This the Craziest Punishment Ever? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Clockwork Orange Ludovico Technique: What You Need to Know About This Infamous Mind Control Method. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Political Prisoners Forced to Watch State TV in Russia - The Shocking Reality You Didn't Know About! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Move Over Netflix, Sleep is Your Biggest Streaming Competitor! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Are You Smarter Than a Goldfish? Shocking New Study Reveals the Truth About Your Attention Span. &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Attention Span Myth Debunked - What You Really Need to Know! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Blue Light: The Silent Killer of Your Vision? Find Out Now! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "Actor Sets Unbelievable Blinking Record - How Did He Do It? &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Surprising Reason Why So Many People Need Glasses Now - You Won't Believe It! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-    "The Unbelievable Morse Code Message Admiral Jeremiah Denton Sent Using Just His Blinks - Mind Blowing! &nbsp; &nbsp; &nbsp; &nbsp;".repeat(
-        3
-    ),
-];
-
 marquees_left = [];
 
 marquees_right = [];
 
 const links = [
-    // "https://en.wikipedia.org/wiki/Don%27t_Blink_(film)",
-    // "https://youtu.be/jk6sz25OZgw?autoplay=0",
-    "https://vimeo.com/327611575",
-    "https://www.bbc.co.uk/sounds/play/p04svtlv",
-    "https://www.education.com/science-fair/article/bug-eyed/ ",
-    "https://mayacfriedman.github.io/seduction-of-machines/",
-    "https://www.oregonlive.com/entertainment/2015/05/109th_annual_staring_contest.html",
-    // "https://youtu.be/SWgg20IqibM ",
-    "https://vimeo.com/18966431",
-    "https://www.abc.net.au/local/photos/2011/09/24/3325159.htm",
-    "https://www.wired.com/2002/11/fetishists-really-love-their-macs/",
-    // "https://www.deviantart.com/shadowedhand/art/Miss-Bunny-gif-784412791",
-    "https://www.newyorker.com/magazine/2023/02/27/darkness-manifesto-book-johan-eklof ",
-    "https://www.scmp.com/news/people-culture/trending-china/article/3200731/too-harsh-parents-china-punish-son-watching-too-much-television-all-night-tv-binge-take-turns-keep",
-    // "https://youtu.be/4woPg0-xyAA",
-    "https://3.bp.blogspot.com/-6saQ9u7ILBc/UZ3CJ0SmjdI/AAAAAAAADQs/6df5HjF37HU/s1600/aclockworkorange5.gif",
-    "https://slate.com/news-and-politics/2021/08/russia-prison-tv-navalny.html",
-    "https://www.theguardian.com/technology/2017/apr/18/netflix-competitor-sleep-uber-facebook",
-    "https://time.com/3858309/attention-spans-goldfish/",
-    "https://www.bbc.com/news/health-38896790",
-    "https://www.aao.org/eye-health/tips-prevention/should-you-be-worried-about-blue-light ",
-    "https://www.upi.com/Odd_News/2019/10/08/Actor-goes-1-hour-17-minutes-3-seconds-without-blinking/5801570550478/",
-    "https://youtu.be/LAkFtka3UFw",
-    "https://youtu.be/rufnWLVQcKg",
+    {
+        title: "The Global Effects of Extractive Technology",
+        url: "https://www.humanetech.com/insights/the-global-effects-of-extractive-technology-video#:~:text=Extractive%20technology%20depletes%20finite%20resources,they%20can%20actually%20deplete%20it.",
+    },
+    {
+        title: "Privacy Considerations for a Pervasive Eye Tracking World",
+        url: "https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/eyetracking-privacy-cameraready.pdf",
+    },
+    {
+        title: "How Tobii Dynavox eye tracking works",
+        url: "https://www.youtube.com/watch?v=Y7_f-pR8SBY&ab_channel=TobiiDynavox",
+    },
+    {
+        title: "Exercise Your Eyes with Dr. Jacob Liberman",
+        url: "https://www.youtube.com/watch?v=hQEbDd2ZfQQ&ab_channel=MauiFilms",
+    },
+    {
+        title: "Don't Blink (film)",
+        url: "https://en.wikipedia.org/wiki/Don%27t_Blink_(film)",
+    },
+    {
+        title: "",
+        url: "https://vimeo.com/327611575",
+    },
+    {
+        title: "Why Can't We Stop Looking at our Phones?",
+        url: "https://www.bbc.co.uk/sounds/play/p04svtlv",
+    },
+    {
+        title: "Animal Vision: Ocelli, Compound Eyes, and Camera Eyes",
+        url: "https://www.education.com/science-fair/article/bug-eyed/",
+    },
+    {
+        title: "The Seduction of Intimate Machines",
+        url: "https://mayacfriedman.github.io/seduction-of-machines/",
+    },
+    {
+        title: "'109th Annual' Staring Contest strains eyeballs in Portland",
+        url: "https://www.oregonlive.com/entertainment/2015/05/109th_annual_staring_contest.html",
+    },
+    {
+        title: "Big Train - Staring final",
+        url: "https://www.youtube.com/watch?v=SWgg20IqibM&ab_channel=richeddie",
+    },
+    {
+        title: "Victory for 'Eyesore' in 40-minute staring competition",
+        url: "https://www.abc.net.au/local/photos/2011/09/24/3325159.htm",
+    },
+    {
+        title: "Fetishists Really Love Their Macs",
+        url: "https://www.wired.com/2002/11/fetishists-really-love-their-macs/",
+    },
+    {
+        title: "Miss Bunny (gif)",
+        url: "https://www.deviantart.com/shadowedhand/art/Miss-Bunny-gif-784412791",
+    },
+    {
+        title: "Is Artificial Light Poisoning the Planet?",
+        url: "https://www.newyorker.com/magazine/2023/02/27/darkness-manifesto-book-johan-eklof",
+    },
+    {
+        title: "‘This is too harsh’: parents in China punish son who watches too much television with all-night TV binge, take turns to keep him awake — dividing public opinion",
+        url: "https://www.scmp.com/news/people-culture/trending-china/article/3200731/too-harsh-parents-china-punish-son-watching-too-much-television-all-night-tv-binge-take-turns-keep",
+    },
+    {
+        title: "Clockwork Orange (1971): Ludovico technique",
+        url: "",
+    },
+    {
+        title: "Political Prisoners in Russia Are Forced to Watch State TV All Day Long",
+        url: "https://slate.com/news-and-politics/2021/08/russia-prison-tv-navalny.html",
+    },
+    {
+        title: "Netflix's biggest competitor? Sleep",
+        url: "https://www.theguardian.com/technology/2017/apr/18/netflix-competitor-sleep-uber-facebook",
+    },
+    {
+        title: "You Now Have a Shorter Attention Span Than a Goldfish",
+        url: "https://time.com/3858309/attention-spans-goldfish/",
+    },
+    {
+        title: "Busting the attention span myth",
+        url: "https://www.bbc.com/news/health-38896790",
+    },
+    {
+        title: "Should You Be Worried About Blue Light?",
+        url: "https://www.aao.org/eye-health/tips-prevention/should-you-be-worried-about-blue-light",
+    },
+    {
+        title: "Actor goes 1 hour, 17 minutes, 3 seconds without blinking",
+        url: "https://www.upi.com/Odd_News/2019/10/08/Actor-goes-1-hour-17-minutes-3-seconds-without-blinking/5801570550478/",
+    },
+    {
+        title: "Why so many people need glasses now",
+        url: "https://www.youtube.com/watch?v=LAkFtka3UFw&ab_channel=Vox",
+    },
+    {
+        title: "Admiral Jeremiah Denton Blinks T-O-R-T-U-R-E using Morse Code as P.O.W.",
+        url: "https://www.youtube.com/watch?v=rufnWLVQcKg&ab_channel=AudieMurphyAmericanLegend",
+    },
+    // {
+    //     title: "",
+    //     url: "",
+    // },
+    // {
+    //     title: "",
+    //     url: "",
+    // },
+    // {
+    //     title: "",
+    //     url: "",
+    // },
+    // {
+    //     title: "",
+    //     url: "",
+    // },
 ];
+
+let titles = links.map(({ title }) => title);
+let urls = links.map(({ url }) => url);
+
+// const links = [
+//     // "https://en.wikipedia.org/wiki/Don%27t_Blink_(film)",
+//     // "https://youtu.be/jk6sz25OZgw?autoplay=0",
+//     "https://vimeo.com/327611575",
+//     "https://www.bbc.co.uk/sounds/play/p04svtlv",
+//     "https://www.education.com/science-fair/article/bug-eyed/ ",
+//     "https://mayacfriedman.github.io/seduction-of-machines/",
+//     "https://www.oregonlive.com/entertainment/2015/05/109th_annual_staring_contest.html",
+//     // "https://youtu.be/SWgg20IqibM ",
+//     "https://vimeo.com/18966431",
+//     "https://www.abc.net.au/local/photos/2011/09/24/3325159.htm",
+//     "https://www.wired.com/2002/11/fetishists-really-love-their-macs/",
+//     // "https://www.deviantart.com/shadowedhand/art/Miss-Bunny-gif-784412791",
+//     "https://www.newyorker.com/magazine/2023/02/27/darkness-manifesto-book-johan-eklof ",
+//     "https://www.scmp.com/news/people-culture/trending-china/article/3200731/too-harsh-parents-china-punish-son-watching-too-much-television-all-night-tv-binge-take-turns-keep",
+//     // "https://youtu.be/4woPg0-xyAA",
+//     "https://3.bp.blogspot.com/-6saQ9u7ILBc/UZ3CJ0SmjdI/AAAAAAAADQs/6df5HjF37HU/s1600/aclockworkorange5.gif",
+//     "https://slate.com/news-and-politics/2021/08/russia-prison-tv-navalny.html",
+//     "https://www.theguardian.com/technology/2017/apr/18/netflix-competitor-sleep-uber-facebook",
+//     "https://time.com/3858309/attention-spans-goldfish/",
+//     "https://www.bbc.com/news/health-38896790",
+//     "https://www.aao.org/eye-health/tips-prevention/should-you-be-worried-about-blue-light ",
+//     "https://www.upi.com/Odd_News/2019/10/08/Actor-goes-1-hour-17-minutes-3-seconds-without-blinking/5801570550478/",
+//     "https://youtu.be/LAkFtka3UFw",
+//     "https://youtu.be/rufnWLVQcKg",
+// ];
 
 //??How to get these text animations right??
 const text_anims = [
@@ -166,15 +220,15 @@ let been_open = true;
 function change_text() {
     if (set_text) {
         const text_p = full_textbox.querySelector("p");
-        console.log(text_p);
         set_text = false;
-        if (index > texts.length - 1) index = 0;
-        text_content = texts[index];
+        if (index > links.length - 1) index = 0;
+        //repeating the titles (for better marquee animation) and adding spacing between repeats
+        text_content = `${titles[index]} &nbsp; &nbsp; &nbsp; &nbsp;`.repeat(3);
 
         text_p.innerHTML = text_content;
         const character_count = text_content.length;
 
-        text_p.style.setProperty("--marquee_end", -`${character_count}em`);
+        // text_p.style.setProperty("--marquee_end", -`${character_count}em`);
         //??Why does this return NaN?
         // console.log(window.getComputedStyle(text_p, null));
         // console.log(character_count);
@@ -185,22 +239,13 @@ function change_text() {
             "<span class='word' >$&</span>"
         );
 
-        // text_p.classList.remove("scroll_up");
-        // text_p.className = "";
-        // void text_p.offsetHeight;
-        // text_p.classList.add("scroll_up");
-
-        // text_p.style.animation = text_anims[index];
-
         text_p.className = "";
         void text_p.offsetWidth;
 
-        text_p.classList.add("scrolling");
-        console.log("animation", text_p.style.animation);
+        text_p.classList.add("marquee");
+        text_p.style.animationDuration = character_count / 25 + "s";
 
         randomize_color();
-        randomize_font(left_text);
-        randomize_font(right_text);
 
         change_marquee();
 
@@ -220,25 +265,19 @@ function change_marquee() {
     const marquees = document.querySelectorAll(".bottom_bar");
     marquees.forEach(function (marquee) {
         const marquee_p = marquee.querySelector("p");
-        marquee_p.innerHTML = `${links[index]}`;
+        marquee_p.innerHTML =
+            `<a href="">${urls[index]}</a> &nbsp; &nbsp; &nbsp; &nbsp;`.repeat(
+                3
+            );
 
         const marquee_p_width = marquee_p.offsetWidth;
-        const marquee_p_clone = marquee_p.cloneNode(true);
-        const marquee_p_clone2 = marquee_p.cloneNode(true);
 
-        marquee_p_clone.classList.add("clone");
-        marquee_p_clone2.classList.add("clone");
-
-        marquee_p.insertAdjacentElement("afterend", marquee_p_clone);
-        //??Why doesn't this work? Why is + 5em not enough of a padding?
-        marquee_p_clone.style.left = `calc(${marquee_p_width}px + 15em)`;
-
-        marquee_p_clone.insertAdjacentElement("afterend", marquee_p_clone2);
-        marquee_p_clone2.style.left = `calc((${marquee_p_width}px + 15em)*2)`;
+        const marquee_speed = marquee_p_width / 300 + "s";
+        marquee_p.style.animationDuration = marquee_speed;
     });
 }
 
-let counter = -1;
+let counter = 0;
 let popup_w;
 let popupWidth_Min = 100;
 let popupWidth_Max = 1300;
@@ -247,8 +286,9 @@ let popupHeight_Max = 900;
 
 function popup() {
     if (set_popup) {
-        if (counter > links.length - 2) counter = -1;
-        if (counter >= 0) {
+        console.log("index", index);
+        if (counter > links.length - 1) counter = 0;
+        if (counter >= 1) {
             //??This doesn't work all the popups with youtube videos in them?
             popup_w.close();
         }
@@ -267,19 +307,11 @@ function popup() {
         var topPos = Math.floor(Math.random() * (screenHeight - popupHeight));
 
         // Open the link at the random index in a new tab
-        // popup_w = window.open(
-        //     links[counter],
-        //     "popup",
-        //     `width=${popupWidth},height=${popupHeight}, left=${leftPos}, top=${topPos}`
-        // );
-
         popup_w = window.open(
-            `/html/popup${counter}.html`,
+            urls[counter],
             "popup",
             `width=${popupWidth},height=${popupHeight}, left=${leftPos}, top=${topPos}`
         );
-
-        console.log("index", index);
     }
 }
 
@@ -467,9 +499,6 @@ faceMesh.setOptions({
     minTrackingConfidence: 0.5,
 });
 
-// Event Listener
-faceMesh.onResults(onResults);
-
 // Create Camera
 const camera = new Camera(videoElement, {
     onFrame: async () => {
@@ -499,8 +528,16 @@ window.addEventListener("click", init);
 function init() {
     document.querySelector(".black_screen").style.display = "none";
 
+    // Event Listener
+    faceMesh.onResults(onResults);
+
     window.removeEventListener("click", init);
 }
+
+//for testing only
+// window.addEventListener("click", function () {
+//     change_text();
+// });
 
 function clear_canvas() {
     mouthCanvasCtx.clearRect(
@@ -520,9 +557,4 @@ function randomize_color() {
             word.style.color = randomColor;
         }, 500);
     });
-}
-
-function randomize_font(e) {
-    let randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-    e.style.fontFamily = randomFont;
 }
