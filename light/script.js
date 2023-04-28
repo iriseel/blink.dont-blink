@@ -105,7 +105,7 @@ const animation_durations_right = [
 ];
 
 const texts_bg = [
-    "Jonathan Beller, <i>The Political Economy of the Postmodern</i>",
+    "<i>The Political Economy of the Postmodern</i>, by Jonathan Beller",
     "Tracing the increasing marginalization of language by images in his “Language, Images and the Postmodern Predicament,” Wlad Godzich, probably borrowing from Roger Munier's pamphlet Against Images, puts it thus:",
     "“Where with language we have a discourse on the world, with human beings facing the world in order to name it, photography substitutes the simple appearance of things; it is a discourse of the world. . . . Images now allow for the paradox that the world states itself before human language.”",
     "To register the crisis that the proliferation of images poses for language and thus for the conscious mind would be to agree with Godzich that today language is outpaced by images.",

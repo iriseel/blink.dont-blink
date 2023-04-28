@@ -286,7 +286,7 @@ canvas {
 
 .marquee {
 
-    animation: marquee 10s linear infinite;
+    animation: marquee 16s linear infinite;
 }
 
 @keyframes gradient {
