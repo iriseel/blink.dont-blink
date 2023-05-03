@@ -10,6 +10,7 @@ function randomize_color() {
 }
 
 randomize_color();
+
 // textFit(popup_word, {
 //     // multiLine: true,
 //     maxFontSize: 1000,
@@ -68,3 +69,4 @@ resizeText({
 //     }
 // }, 10);
 // // });
+

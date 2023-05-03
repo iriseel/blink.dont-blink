@@ -174,6 +174,7 @@ function popup() {
         // Remove the temporary element
         // document.body.removeChild(tempElement);
 
+
         const screenWidth = window.screen.availWidth;
         const screenHeight = window.screen.availHeight;
         var leftPos = Math.floor(Math.random() * (screenWidth - popupWidth));
