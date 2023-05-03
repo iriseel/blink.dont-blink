@@ -30,11 +30,44 @@ marquees_left = [];
 marquees_right = [];
 
 const text =
-    "In the race for attention, because there’s only so much attention, companies have to get more and more aggressive. I call it the race to the bottom of the brain stem. So it starts with techniques like pull to refresh, so you pull to refresh your newsfeed, that operates liek a slot machine, it has the same kind of addictive qualities that people in Las Vegas hooked to the slot machine. … But the race for attention has to get more and more aggressive. And so it’s not enough to just to get your behavior and predict what will take your behavior, we have to predict how to keep you hooked in a different way. And so, it crawls deeper down the brain stem, into our social validation. That was the introduciton of likes and followers, how many followers do i have. And it was much cheaper, instead of getting your attention, to get you addicted to getting attention from other people. … And in the race for attention, it’s not enough just to get people addicted to attention, the race has to migrate to AI. Who can build a better predictive model of your behavior?";
+    "In the race for attention, because there’s only so much attention, companies have to get more and more aggressive. I call it the race to the bottom of the brain stem. So it starts with techniques like pull to refresh, so you pull to refresh your newsfeed, that operates like a slot machine, it has the same kind of addictive qualities that people in Las Vegas hooked to the slot machine. Other examples are removing the stopping cues, so if I take the bottom out of this glass, and I keep refilling the water or the wine, you won't know when to stop drinking. So that's what happens with infinitely scrolling feeds, we naturally remove the stopping cues and this is what keeps people scrolling. But the race for attention has to get more and more aggressive. And so it’s not enough to just to get your behavior and predict what will take your behavior, we have to predict how to keep you hooked in a different way. And so, it crawls deeper down the brain stem, into our social validation. That was the introduction of likes and followers, how many followers do I have. And it was much cheaper, instead of getting your attention, to get you addicted to getting attention from other people. … And in the race for attention, it’s not enough just to get people addicted to attention, the race has to migrate to AI. Who can build a better predictive model of your behavior?";
 
 // const text =
 //     "The average attention span for the notoriously ill-focused goldfish is nine seconds, but according to a new study from Microsoft Corp., people now generally lose concentration after eight seconds, highlighting the affects of an increasingly digitalized lifestyle on the brain. Researchers in Canada surveyed 2,000 participants and studied the brain activity of 112 others using electroencephalograms (EEGs). Microsoft found that since the year 2000 (or about when the mobile revolution began) the average attention span dropped from 12 seconds to eight seconds. “Heavy multi-screeners find it difficult to filter out irrelevant stimuli — they’re more easily distracted by multiple streams of media,” the report read. On the positive side, the report says our ability to multitask has drastically improved in the mobile age. Microsoft theorized that the changes were a result of the brain’s ability to adapt and change itself over time and a weaker attention span may be a side effect of evolving to a mobile Internet. The survey also confirmed generational differences for mobile use; for example, 77% of people aged 18 to 24 responded “yes” when asked, “When nothing is occupying my attention, the first thing I do is reach for my phone,” compared with only 10% of those over the age of 65. And now congratulate yourself for concentrating long enough to make it through this article.";
-const text_words = text.split(" ");
+
+function randomize_num(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+//this splits text into single words
+// const text_words = text.split(" ");
+
+//this splits texts into segments of randomized lengths (between word_min and word_max)
+function splitStringIntoSegments(text) {
+    let word_min;
+    let word_max;
+    const words = text.split(" ");
+    const segments = [];
+
+    while (words.length > 0) {
+        if (Math.random() >= 0.5) {
+            word_min = 1;
+            word_max = 3;
+        } else {
+            word_min = 8;
+            word_max = 16;
+        }
+        const segmentLength = randomize_num(word_min, word_max);
+        const segment = words.splice(0, segmentLength).join(" ");
+        segments.push(segment);
+    }
+
+    return segments;
+}
+
+const text_words = splitStringIntoSegments(text);
+
+// console.log(text_words);
 
 const colors = ["red", "blue", "green", "yellow", "orange", "purple"];
 
@@ -78,16 +111,56 @@ change_text();
 
 let counter = 0;
 let popup_w;
-let popupHeight = 150;
+// this is for when each popup only has 1 word
+// let popupHeight = 150;
 
 //index resets while counter does not
 function popup() {
     if (set_popup) {
         if (index > text_words.length - 1) index = 0;
         console.log("counter", counter);
+
+        // this is for calculating popupWidth when each popup only has 1 word
         const character_count = text_words[index].length;
-        let popupWidth = character_count * 100;
-        // console.log("popup width", popupWidth);
+        // let popupWidth = character_count * 100;
+
+        let audio_start = 0;
+        let audio_end = audio_start + character_count * 100;
+
+        //Trying to make the popupHeigth and width always be just right to show all of the text_words
+        // Create a temporary element and put the text in it in order to measure content size
+        const tempElement = document.createElement("div");
+        tempElement.classList.add("temp");
+        tempElement.style.position = "absolute";
+        tempElement.style.visibility = "hidden";
+        tempElement.style.width = randomize_num(100, 1000) + "px";
+        // console.log("tempElem width", tempElement.style.width);
+        tempElement.innerHTML = text_words[index];
+        document.body.appendChild(tempElement);
+
+        // Measure the size of the content
+        const contentWidth = tempElement.offsetWidth;
+        console.log(contentWidth);
+        let contentHeight = tempElement.offsetHeight;
+        console.log("contentHeight", contentHeight);
+
+        //??Sometimes there are too many words in a given tempElement width, so that even fullscreen height isn't enough to display all the words. I'm trying to counteract this by scaling down the fontsize accordingly but the fit is still not quite right??
+        let fontsize = 200;
+        const windowHeight = window.innerHeight;
+        while (contentHeight > windowHeight) {
+            fontsize -= 2;
+            tempElement.style.fontSize = fontsize + "px";
+
+            //??I think the issue here is that the contentHeight isn't changing from the original setting just because font-size is decreasing
+            contentHeight = tempElement.offsetHeight;
+        }
+
+        // Calculate the window size with some padding or margin if needed
+        const popupWidth = contentWidth + 50; // Add padding
+        const popupHeight = contentHeight + 50; // Add padding
+
+        // Remove the temporary element
+        document.body.removeChild(tempElement);
 
         const screenWidth = window.screen.availWidth;
         const screenHeight = window.screen.availHeight;
@@ -102,9 +175,15 @@ function popup() {
             `width=${popupWidth},height=${popupHeight}, left=${leftPos}, top=${topPos}`
         );
 
+        popup_w.onload = function () {
+            popup_w.audio_start = audio_start;
+            console.log(audio_start);
+            popup_w.audio_end = audio_end;
+        };
+
         popup_w.document.write(
             `<html><head><link rel="stylesheet" href="popup.css" /><title>Popup</title></head><body>
-            <div class="popup">${text_words[index]}</div>
+            <div class="popup" style="font-size: ${fontsize}">${text_words[index]}</div>
             <script src="popup.js"></script>
             </body></html>`
         );

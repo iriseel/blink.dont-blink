@@ -14,9 +14,13 @@ body {
     font-size:100px;
     overflow:hidden;
     font-family: impactN, 'Helvetica', 'arial', sans-serif;
+    display:flex;
+    flex-flow:row wrap;
+    justify-content: center;
+    align-content: center;
 }
 
 .popup {
     /* background:pink; */
-    text-align:center;
+    word-break: break-all;
 }
