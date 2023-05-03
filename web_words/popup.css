@@ -11,12 +11,24 @@
 body {
     background:black;
     color:white;
-    font-size:100px;
+    width: 100vw;
+    height: 100vh;
+    /* font-size:100px; */
     overflow:hidden;
     font-family: impactN, 'Helvetica', 'arial', sans-serif;
+    /* display:flex;
+    flex-flow:row wrap;
+    justify-content: center;
+    align-content: center; */
 }
 
 .popup {
+    /* width:90%;
+    height:90%; */
+    font-size: 100px;
+    background-color: tomato;
+    /* padding: 20px; */
     /* background:pink; */
-    text-align:center;
+    /* word-break: break-all; */
+    /* hyphens: auto; */
 }

@@ -40,6 +40,7 @@ body {
     position: relative;
 
     font-family: impactN, 'Helvetica', 'arial', sans-serif;
+
     font-size: 10vh;
     line-height: 12vh;
     color: white;
@@ -47,6 +48,10 @@ body {
 
     background:black;
 
+}
+
+.temp {
+    font-size:200px;
 }
 
 a {
@@ -74,6 +79,11 @@ a:visited {
     font-size:.75em;
     line-height:1.25em;
     max-width:70%;
+}
+
+.warning p:not(:first-of-type) {
+    margin-top:.5em;
+    text-indent: 2em;
 }
 
 .container {
