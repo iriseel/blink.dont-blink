@@ -1,6 +1,5 @@
 //??ISSUE for cyberduck: localhosts website says "No navigator.mediaDevices.getUserMedia exists." on loading webpage??
 
-//ISSUES: making animations more exaggerated and smoother
 //??Where should I place all the functions outside of onResults? Before or after?
 
 // define variables
@@ -580,6 +579,11 @@ function init() {
     faceMesh.onResults(onResults);
 
     window.removeEventListener("click", init);
+
+    //open self in new tab on click
+    document.body.addEventListener("click", function () {
+        window.open(window.location.href, "_blank");
+    });
 }
 
 //for testing only
